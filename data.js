@@ -21,13 +21,13 @@
    -------------------------------------------------------------------------- */
 
 const SITE = {
-  name: "Alex Morgan",              // Your full name (big headline)
-  firstName: "Alex",                // Short name (used in the top bar)
-  role: "Product Designer",         // What you do
+  name: "Karan Khatri",              // Your full name (big headline)
+  firstName: "Karan",                // Short name (used in the top bar)
+  role: "Product Design Lead",         // What you do
   tagline:
     "I design calm, useful products — turning messy problems into simple, friendly software that people actually enjoy using.",
 
-  location: "Bengaluru, India",     // Shown under your photo
+  location: "Delhi, India",     // Shown under your photo
   timezone: "Asia/Kolkata",         // For the live clock tile.
                                     // Examples: "Asia/Kolkata", "Europe/London",
                                     // "America/New_York", "Asia/Dubai"
@@ -35,7 +35,7 @@ const SITE = {
   availability: "Open to work",     // Little green status chip. Try:
                                     // "Open to freelance" / "Booked until Oct"
 
-  email: "hello@alexmorgan.design", // Your real email — the contact buttons use this
+  email: "karankhatri04@protonmail.com", // Your real email — the contact buttons use this
   resume: "",                       // Optional: link to your resume PDF, or leave ""
 
   avatar: "images/avatar.svg",      // Your photo → replace with e.g. "images/me.jpg"
@@ -45,9 +45,9 @@ const SITE = {
 
   // Big numbers on the homepage (keep them short!)
   stats: [
-    { number: "6+",  label: "Years of experience" },
-    { number: "24",  label: "Products shipped" },
-    { number: "11",  label: "Happy teams & clients" },
+    { number: "~5",  label: "Years of experience" },
+    { number: "18",  label: "Products shipped" },
+    { number: "7",  label: "Happy teams & clients" },
   ],
 
   // These scroll across the moving ticker strip
