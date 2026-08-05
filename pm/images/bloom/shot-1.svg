@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1000">
+<rect width="1600" height="1000" fill="#c4eed0"/>
+<g fill="#188038" opacity="0.12" transform="translate(1280,-60) scale(4.0)"><ellipse cx="50" cy="19" rx="12.5" ry="19"/><ellipse cx="50" cy="81" rx="12.5" ry="19"/><ellipse cx="19" cy="50" rx="19" ry="12.5"/><ellipse cx="81" cy="50" rx="19" ry="12.5"/><ellipse cx="50" cy="19" rx="12.5" ry="19" transform="rotate(45 50 50)"/><ellipse cx="50" cy="81" rx="12.5" ry="19" transform="rotate(45 50 50)"/><ellipse cx="19" cy="50" rx="19" ry="12.5" transform="rotate(45 50 50)"/><ellipse cx="81" cy="50" rx="19" ry="12.5" transform="rotate(45 50 50)"/><circle cx="50" cy="50" r="13"/></g>
+
+<rect x="560" y="90" width="480" height="820" rx="56" fill="#ffffff"/>
+<rect x="740" y="122" width="120" height="14" rx="7" fill="#c4eed0"/>
+<rect x="620" y="190" width="240" height="34" rx="17" fill="#072711" opacity="0.88"/>
+<rect x="620" y="244" width="330" height="16" rx="8" fill="#072711" opacity="0.24"/>
+<rect x="620" y="560" width="70" height="180" rx="18" fill="#c4eed0"/>
+<rect x="712" y="480" width="70" height="260" rx="18" fill="#c4eed0"/>
+<rect x="804" y="410" width="70" height="330" rx="18" fill="#188038" opacity="0.85"/>
+<rect x="896" y="520" width="70" height="220" rx="18" fill="#c4eed0"/>
+<rect x="620" y="790" width="360" height="60" rx="30" fill="#188038"/>
+<text x="668" y="830" font-family='DM Sans, system-ui, sans-serif' font-size="26" font-weight="700" fill="#ffffff">Primary action</text>
+
+<text x="110" y="952" font-family='DM Sans, system-ui, sans-serif' font-size="26" font-weight="600" fill="#072711" opacity="0.55">Bloom experiment — replace with your own image</text>
+</svg>
