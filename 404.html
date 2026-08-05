@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Not found</title>
+  <meta name="robots" content="noindex" />
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cg fill='%230b57d0'%3E%3Cellipse cx='50' cy='19' rx='13' ry='19'/%3E%3Cellipse cx='50' cy='81' rx='13' ry='19'/%3E%3Cellipse cx='19' cy='50' rx='19' ry='13'/%3E%3Cellipse cx='81' cy='50' rx='19' ry='13'/%3E%3Ccircle cx='50' cy='50' r='14'/%3E%3C/g%3E%3C/svg%3E" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300..1000&display=swap" rel="stylesheet" />
+
+  <!-- GitHub Pages serves this file for ANY missing URL, at any depth,
+       so all styles are inlined — no relative paths to break. -->
+  <style>
+    :root { --bg:#ffffff; --on-bg:#1f1f1f; --muted:#5f6368; --surface:#f0f4f9; --primary:#0b57d0; }
+    @media (prefers-color-scheme: dark) {
+      :root { --bg:#131314; --on-bg:#e3e3e3; --muted:#9aa0a6; --surface:#1e1f20; --primary:#a8c7fa; }
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "DM Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg); color: var(--on-bg); line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    .landing { min-height: 100svh; display: grid; place-items: center; padding: 24px; }
+    .tile {
+      background: var(--surface); border-radius: 28px;
+      max-width: 560px; width: 100%;
+      padding: clamp(40px, 7vw, 64px);
+      display: flex; flex-direction: column; align-items: center; text-align: center; gap: 16px;
+    }
+    .flower { width: 40px; height: 40px; color: var(--primary); }
+    h1 { font-size: clamp(2.1rem, 4.6vw, 3.4rem); font-weight: 800; letter-spacing: -.03em; line-height: 1.08; }
+    p { color: var(--muted); max-width: 40ch; }
+  </style>
+</head>
+<body>
+  <main class="landing">
+    <div class="tile">
+      <svg class="flower" viewBox="0 0 100 100" fill="currentColor" aria-hidden="true"><ellipse cx="50" cy="19" rx="12.5" ry="19"/><ellipse cx="50" cy="81" rx="12.5" ry="19"/><ellipse cx="19" cy="50" rx="19" ry="12.5"/><ellipse cx="81" cy="50" rx="19" ry="12.5"/><ellipse cx="50" cy="19" rx="12.5" ry="19" transform="rotate(45 50 50)"/><ellipse cx="50" cy="81" rx="12.5" ry="19" transform="rotate(45 50 50)"/><ellipse cx="19" cy="50" rx="19" ry="12.5" transform="rotate(45 50 50)"/><ellipse cx="81" cy="50" rx="19" ry="12.5" transform="rotate(45 50 50)"/><circle cx="50" cy="50" r="13"/></svg>
+      <h1>Nothing here.</h1>
+      <p>This page doesn’t exist — please double-check the link you were sent.</p>
+    </div>
+  </main>
+</body>
+</html>
