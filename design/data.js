@@ -25,7 +25,7 @@ const VIEW = {
 
   availability: "Open to lead roles",  // Little green status chip
 
-  avatar: "images/Karan.png",         // Photo for THIS view → put it in design/images/
+  avatar: "images/img.png",         // Photo for THIS view → put it in design/images/
   resume: "",                          // Link to your design resume PDF, or leave ""
 
   about:
