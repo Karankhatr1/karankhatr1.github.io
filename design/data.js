@@ -26,7 +26,7 @@ const VIEW = {
   availability: "Open to lead roles",  // Little green status chip
 
   avatar: "images/img.png",         // Photo for THIS view → put it in design/images/
-  resume: "",                          // Link to your design resume PDF, or leave ""
+  resume: "https://drive.google.com/file/d/1EVtiUI4p65P42-YcSVloRJSLjIAPhTC3/view?usp=drive_link",
 
   about:
     "Six years designing and leading design across fintech, education and developer tools. I care about clarity, motion that means something, systems that scale taste — and growing designers who ship, not just decks.",
