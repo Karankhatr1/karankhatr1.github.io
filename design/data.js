@@ -33,8 +33,8 @@ const VIEW = {
 
   // Big numbers on the homepage (keep them short!)
   stats: [
-    { number: "6+", label: "Years of experience" },
-    { number: "24", label: "Products shipped" },
+    { number: "~5", label: "Years of experience" },
+    { number: "18", label: "Products shipped" },
     { number: "9",  label: "Designers mentored" },
   ],
 
