@@ -13,12 +13,12 @@
    ========================================================================== */
 
 const PROFILE = {
-  name: "Alex Morgan",              // Your full name (big headline)
-  firstName: "Alex",                // Short name (used in the top bar)
+  name: "Karan Khatri",              // Your full name (big headline)
+  firstName: "Karan",                // Short name (used in the top bar)
 
-  email: "hello@alexmorgan.design", // Your real email — all contact buttons use this
+  email: "karankhatri04@protonmail.com", // Your real email — all contact buttons use this
 
-  location: "Bengaluru, India",     // Shown under your photo
+  location: "Delhi, India",     // Shown under your photo
   timezone: "Asia/Kolkata",         // For the live clock tile.
                                     // Examples: "Asia/Kolkata", "Europe/London",
                                     // "America/New_York", "Asia/Dubai"
@@ -27,9 +27,9 @@ const PROFILE = {
   // Want different links per audience? Add a  socials: [ ... ]  list inside
   // that view's data.js instead — a view's data.js always wins over this file.
   socials: [
-    { label: "LinkedIn",  url: "https://linkedin.com/in/yourname" },
-    { label: "Dribbble",  url: "https://dribbble.com/yourname" },
-    { label: "Instagram", url: "https://instagram.com/yourname" },
-    { label: "GitHub",    url: "https://github.com/yourname" },
+    { label: "LinkedIn",  url: "https://linkedin.com/in/karankhatr1" },
+    { label: "Dribbble",  url: "https://dribbble.com/karankhatr1" },
+    { label: "Instagram", url: "https://instagram.com/karankhatr1" },
+    { label: "GitHub",    url: "https://github.com/karankhatr1" },
   ],
 };
