@@ -64,18 +64,18 @@ const CASE_STUDIES = [
   /* ----- Project 1 ------------------------------------------------------ */
   {
     id: "atlas",
-    title: "Atlas — one design system, nine products",
-    subtitle: "Building the token system, component library and rituals that let nine product teams ship with one voice.",
-    cover: "images/atlas/cover.svg",
-    tags: ["Design system", "Leadership", "B2B", "2025"],
-    color: "yellow",
+    title: "New Reports Designs",
+    subtitle: "Building the New Reports Across Web and Mobile, Feature Gating, Partner Designs, Marketing Pages Throughout the Product.",
+    cover: "images/atlas/NRD.png",
+    tags: ["Design system", "Leadership", "D2C", "Performance Marketing"],
+    color: "blue",
     size: "large",
 
     meta: [
-      { label: "Role",     value: "Design Systems Lead" },
-      { label: "Timeline", value: "2025, ongoing" },
+      { label: "Role",     value: "Product Manager (UI/UX)" },
+      { label: "Timeline", value: "2026, ongoing" },
       { label: "Scope",    value: "9 product teams" },
-      { label: "Tools",    value: "Figma, Storybook" },
+      { label: "Tools",    value: "Figma, Storybook, VSCode, Lovable, Claude" },
     ],
 
     sections: [
@@ -87,14 +87,13 @@ const CASE_STUDIES = [
       },
       {
         type: "image",
-        src: "images/atlas/shot-1.svg",
-        caption: "Colour, type and spacing tokens — the shared language under every screen.",
+        src: "images/atlas/main.png",
+        caption: "Created Multiple Versions for the Report Header Personalizing it",
       },
-      {
-        type: "text",
-        heading: "What we built",
-        body:
-          "A three-layer token architecture (primitive → semantic → component), 48 documented components, and a weekly office hour that quietly did more for adoption than any of the tooling.\n\nEverything ships with usage guidance written for humans — when to use it, when not to, and what to do instead. I paired a designer from each product team with the systems team for a rotation, which turned nine sceptics into nine advocates.",
+         {
+        type: "image",
+        src: "images/atlas/Older Reports.png",
+        caption: "Older PDF Versions Didnt look appealing, on brand or work for mobile Views",
       },
       {
         type: "stats",
