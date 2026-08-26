@@ -96,16 +96,81 @@ const CASE_STUDIES = [
         caption: "Older PDF Versions Didnt look appealing, on brand or work for mobile Views",
       },
       {
+        type: "image",
+        src: "images/atlas/Advanced Metrics.png",
+        caption: "Rather than Boring Text, Designed more intuitive Experiences alltogethes",
+      },
+      {
+        type: "image",
+        src: "images/atlas/CCM Report Section.png",
+        caption: "Redesigned Sections to match Sport type and Event Partner Branding",
+      },
+      {
+        type: "image",
+        src: "images/atlas/Stanford Section.png",
+        caption: "Redesigned Sections to match Sport type and Event Partner Branding",
+      },
+      {
+        type: "image",
+        src: "images/atlas/JSON.png",
+        caption: "Performed QA, Wrote Requirements, Accounted for Mmlformed data, partnering with AI/ML Teams",
+      },
+      {
+        type: "image",
+        src: "images/atlas/gating.png",
+        caption: "Prepared PRDs, planned gating and designed the experiences to support business needs",
+      },     
+      {
+        type: "image",
+        src: "images/atlas/ReccomendedDrills Unlocked.png",
+        caption: "Unlocked Sections",
+      }, 
+      {
+        type: "image",
+        src: "images/atlas/Phenom Profile.png",
+        caption: "Partner Events Used the Original Suggestions for Personalization",
+      },
+      {
+        type: "image",
+        src: "images/atlas/Stanford Profile.png",
+        caption: "Partner Events Used the Original Suggestions for Personalization",
+      },
+      {
+        type: "image",
+        src: "images/atlas/marketingpageform.png",
+        caption: "Made Performance Marketing Focused pages for the Event Partnerships",
+      }, 
+      {
+        type: "image",
+        src: "images/atlas/marketingpagepricing.png",
+        caption: "Made Performance Marketing Focused pages for the Event Partnerships",
+      }, 
+      {
+        type: "image",
+        src: "images/atlas/marketingpagefaq.png",
+        caption: "Made Performance Marketing Focused pages for the Event Partnerships",
+      }, 
+      {
+        type: "image",
+        src: "images/atlas/marketingpagesteps.png",
+        caption: "Made Performance Marketing Focused pages for the Event Partnerships",
+      }, 
+      {
+        type: "image",
+        src: "images/atlas/marketingpagefooter.png",
+        caption: "Made Performance Marketing Focused pages for the Event Partnerships",
+      }, 
+      {
         type: "stats",
         items: [
-          { number: "92%",  label: "Screens on system components" },
-          { number: "−60%", label: "Design-to-dev handoff time" },
+          { number: "92%",  label: "New Report Adoption Rate at Event Partnerships" },
+          { number: "−60%", label: "Reduction in Enhancements post dev" },
         ],
       },
       {
         type: "quote",
-        body: "Atlas is the first design system our engineers actually defend in code review.",
-        by: "Staff engineer, Platform team",
+        body: "These Reports are a fresh look to show NTIS, Phenom, CCM, Stanford etc.",
+        by: "C Suite Feedback",
       },
     ],
   },
