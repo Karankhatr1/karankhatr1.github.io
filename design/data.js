@@ -103,7 +103,7 @@ const CASE_STUDIES = [
       {
         type: "image",
         src: "images/atlas/CCM.png",
-        caption: "Redesigned Sections to match Sport type and Event Partner Branding",
+        caption: "Redesigned Sections to match Sport type and Event Partner Brandings",
       },
       {
         type: "image",
