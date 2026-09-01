@@ -69,7 +69,7 @@ const CASE_STUDIES = [
     cover: "images/atlas/NRD.png",
     tags: ["AI Native", "Leadership", "D2C", "Marketing"],
     color: "blue",
-    size: "large",
+    size: "normal",
 
     meta: [
       { label: "Role",     value: "Product Manager (UI/UX)" },
@@ -175,6 +175,68 @@ const CASE_STUDIES = [
     ],
   },
 
+ /* ----- Project 3 ------------------------------------------------------ */
+  {
+    id: "payflow",
+    title: "Payflow — invoicing that runs itself",
+    subtitle: "Leading design for a mobile app that helps freelancers send invoices in under a minute and get paid twice as fast.",
+    cover: "images/payflow/cover.svg",
+    tags: ["Mobile app", "Fintech", "2026"],
+    color: "blue",
+    size: "normal",
+
+    meta: [
+      { label: "Role",     value: "Lead Product Designer" },
+      { label: "Timeline", value: "Jan – May 2026" },
+      { label: "Platform", value: "iOS & Android" },
+      { label: "Tools",    value: "Figma, Protopie" },
+    ],
+
+    sections: [
+      {
+        type: "text",
+        heading: "The problem",
+        body:
+          "Freelancers told us the same story again and again: invoicing lives in a mess of email threads, spreadsheets and screenshots. Payments arrive late, follow-ups feel awkward, and nobody knows what they’re actually owed.\n\nOur goal was blunt and measurable — let anyone create and send a professional invoice in under sixty seconds, and make chasing payments feel automatic instead of uncomfortable.",
+      },
+      {
+        type: "image",
+        src: "images/payflow/shot-1.svg",
+        caption: "Early explorations of the one-tap invoice flow.",
+      },
+      {
+        type: "text",
+        heading: "The approach",
+        body:
+          "I interviewed twelve freelancers and shadowed three through a full billing cycle. Three principles fell out of that research: speed over settings, money you can see, and follow-ups the app sends so you don’t have to.\n\nThe home screen became a simple timeline of money in motion — what’s drafted, what’s sent, what’s overdue — with one primary action always within thumb’s reach. I ran weekly crit with the second designer on the team, using the principles as the rubric so feedback stayed about the work.",
+      },
+      {
+        type: "stats",
+        items: [
+          { number: "+38%", label: "More invoices sent" },
+          { number: "2.1×", label: "Faster payment time" },
+          { number: "4.8★", label: "App Store rating" },
+        ],
+      },
+      {
+        type: "image",
+        src: "images/payflow/shot-2.svg",
+        caption: "The final home screen and payment timeline.",
+      },
+      {
+        type: "quote",
+        body: "Payflow turned my most dreaded admin task into a thirty-second habit.",
+        by: "Beta user, month two",
+      },
+      {
+        type: "text",
+        heading: "The outcome",
+        body:
+          "We launched to 5,000 wait-listed users in May. Beyond the numbers, the most telling signal was behavioural: overdue follow-ups — the feature people feared would feel rude — became the most-loved part of the product in reviews.",
+      },
+    ],
+  },
+   
   /* ----- Project 2 ------------------------------------------------------ */
   {
     id: "payflow",
