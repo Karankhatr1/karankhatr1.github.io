@@ -67,7 +67,7 @@ const CASE_STUDIES = [
     title: "New Reports Designs",
     subtitle: "Building the New Reports Across Web and Mobile, Feature Gating, Partner Designs, Marketing Pages Throughout the Product.",
     cover: "images/atlas/NRD.png",
-    tags: ["Design system", "Leadership", "D2C", "Performance Marketing"],
+    tags: ["AI Native", "Leadership", "D2C", "Marketing"],
     color: "blue",
     size: "large",
 
