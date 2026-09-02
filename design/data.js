@@ -74,7 +74,7 @@ const CASE_STUDIES = [
     meta: [
       { label: "Role",     value: "Product Manager (UI/UX)" },
       { label: "Timeline", value: "2026, ongoing" },
-      { label: "Scope",    value: "9 product teams" },
+      { label: "Scope",    value: "Overall Feature Overhaul" },
       { label: "Tools",    value: "Figma, Storybook, VSCode, Lovable, Claude" },
     ],
 
@@ -83,17 +83,17 @@ const CASE_STUDIES = [
         type: "text",
         heading: "The problem",
         body:
-          "Nine teams, nine shades of blue, four different buttons. Every redesign started from zero, and every handoff was a negotiation. Atlas set out to make the consistent thing the easy thing.",
+          "The Analysis output was a PDF file, this was hard to access across mobile and smaller screens, did not intergrate with the brand or the product and caused user dropf ",
+      },
+      {
+        type: "image",
+        src: "images/atlas/Older Reports.png",
+        caption: "Older PDF Versions Didnt look appealing, on brand or work for mobile Views",
       },
       {
         type: "image",
         src: "images/atlas/main.png",
-        caption: "Created Multiple Versions for the Report Header Personalizing it",
-      },
-         {
-        type: "image",
-        src: "images/atlas/Older Reports.png",
-        caption: "Older PDF Versions Didnt look appealing, on brand or work for mobile Views",
+        caption: "Created Multiple Versions for the Report Header Personalizing it, the top version was approved for the in-app experiencec",
       },
       {
         type: "image",
@@ -103,7 +103,7 @@ const CASE_STUDIES = [
       {
         type: "image",
         src: "images/atlas/CCM.png",
-        caption: "Redesigned Sections to match Sport type and Event Partner Brandings",
+        caption: "Redesigned Sections to match Sport type and Event Partner Branding",
       },
       {
         type: "image",
@@ -113,7 +113,7 @@ const CASE_STUDIES = [
       {
         type: "image",
         src: "images/atlas/JSON.png",
-        caption: "Performed QA, Wrote Requirements, Accounted for Mmlformed data, partnering with AI/ML Teams",
+        caption: "Performed QA, Wrote Requirements, Accounted for Malformed data, partnering with AI/ML Teams",
       },
       {
         type: "image",
