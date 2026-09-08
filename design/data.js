@@ -68,7 +68,7 @@ const CASE_STUDIES = [
     subtitle: "Building the New Reports Across Web and Mobile, Feature Gating, Partner Designs, Marketing Pages Throughout the Product.",
     cover: "images/atlas/NRD.png",
     tags: ["AI Native", "Leadership", "D2C", "Marketing"],
-    color: "green",
+    color: "blue",
     size: "normal",
 
     meta: [
@@ -174,6 +174,66 @@ const CASE_STUDIES = [
       },
     ],
   },
+ /* ----- Project 3 ------------------------------------------------------ */
+  {
+    id: "payflow",
+    title: "B2B & Analytics Dashboard",
+    subtitle: "Entire end to end, B2B and Analytics Dashboard",
+    cover: "images/payflow/cover.svg",
+    tags: ["Mobile app", "Fintech", "2026"],
+    color: "green",
+    size: "normal",
 
+    meta: [
+      { label: "Role",     value: "Lead Product Designer" },
+      { label: "Timeline", value: "Apr – Sept 2026" },
+      { label: "Platform", value: "Web, iOS, Android" },
+      { label: "Tools",    value: "Figma, Protopie, Claude, Lovable" },
+    ],
+
+    sections: [
+      {
+        type: "text",
+        heading: "The problem",
+        body:
+          "We had to solve the B2B Enterpirse side scope of the product.",
+      },
+      {
+        type: "image",
+        src: "images/payflow/Frame 2147228507.png",
+        caption: "Enterprise Ingestion flow and its various entry points",
+      },
+      {
+        type: "image",
+        src: "images/payflow/Frame 2147228511(1).png",
+        caption: "Player Analytics Dashboard and Detail Views",
+      },
+      {
+        type: "image",
+        src: "images/payflow/Frame 2147228508(1).png",
+        caption: "Allocation and Management Screens for tracking across enterprise",
+      },
+      {
+        type: "image",
+        src: "images/payflow/0b9052f0-693a-48fc-96da-7621657b189d.png",
+        caption: "User Management Screens from the Admin view",
+      },
+      {
+        type: "image",
+        src: "images/payflow/ChatGPT Image Aug 27, 2026, 04_46_39 AM.png",
+        caption: "Detailed Roles and Mulitple Orgs available in the complex flow",
+      },
+      {
+        type: "image",
+        src: "images/payflow/FireShot Capture 002 - Lovable App - runiq-org-nexus.lovable.app.png",
+        caption: "New Tiered Pricing including the Enterprise level plans",
+      },
+      {
+        type: "quote",
+        body: "this dashboard will make keeping track of stats long term way easier",
+        by: "Coach Brendan, Beta User",
+      },
+    ],
+  },
   /* ➕ Paste new projects above this line, and keep this bracket: */
 ];
