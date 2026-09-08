@@ -21,7 +21,7 @@
 const VIEW = {
   role: "Product Design Lead",
   tagline:
-    "I lead design work that ships — turning messy problems into calm, useful software, and raising the craft bar without slowing the team down.",
+    "I lead design work that ships; turning messy problems into structured, useful software, and raising the craft bar without slowing the team down.",
 
   availability: "Open to lead roles",  // Little green status chip
 
@@ -29,13 +29,13 @@ const VIEW = {
   resume: "https://drive.google.com/file/d/1EVtiUI4p65P42-YcSVloRJSLjIAPhTC3/view?usp=drive_link",
 
   about:
-    "Six years designing and leading design across fintech, education and developer tools. I care about clarity, motion that means something, systems that scale taste — and growing designers who ship, not just decks.",
+    "Six years designing and leading design across AI Native, Enterprise and Developer Tools. I care about clarity, motion that means something, systems that scale and Taste",
 
   // Big numbers on the homepage (keep them short!)
   stats: [
     { number: "~5", label: "Years of experience" },
-    { number: "18", label: "Products shipped" },
-    { number: "9",  label: "Designers mentored" },
+    { number: "20+", label: "Features shipped" },
+    { number: "7+",  label: "Designers Led" },
   ],
 
   // These scroll across the moving ticker strip
@@ -178,8 +178,8 @@ const CASE_STUDIES = [
  /* ----- Project 3 ------------------------------------------------------ */
   {
     id: "payflow",
-    title: "Payflow — invoicing that runs itself",
-    subtitle: "Leading design for a mobile app that helps freelancers send invoices in under a minute and get paid twice as fast.",
+    title: "B2B & Analytics Dashboard",
+    subtitle: "Entire end to end, B2B and Analytics Dashboard",
     cover: "images/payflow/cover.svg",
     tags: ["Mobile app", "Fintech", "2026"],
     color: "blue",
@@ -187,9 +187,9 @@ const CASE_STUDIES = [
 
     meta: [
       { label: "Role",     value: "Lead Product Designer" },
-      { label: "Timeline", value: "Jan – May 2026" },
-      { label: "Platform", value: "iOS & Android" },
-      { label: "Tools",    value: "Figma, Protopie" },
+      { label: "Timeline", value: "Apr – Sept 2026" },
+      { label: "Platform", value: "Web, iOS, Android" },
+      { label: "Tools",    value: "Figma, Protopie, Claude, Lovable" },
     ],
 
     sections: [
@@ -197,42 +197,42 @@ const CASE_STUDIES = [
         type: "text",
         heading: "The problem",
         body:
-          "Freelancers told us the same story again and again: invoicing lives in a mess of email threads, spreadsheets and screenshots. Payments arrive late, follow-ups feel awkward, and nobody knows what they’re actually owed.\n\nOur goal was blunt and measurable — let anyone create and send a professional invoice in under sixty seconds, and make chasing payments feel automatic instead of uncomfortable.",
+          "We had to solve the B2B Enterpirse side scope of the product.",
       },
       {
         type: "image",
-        src: "images/payflow/shot-1.svg",
-        caption: "Early explorations of the one-tap invoice flow.",
-      },
-      {
-        type: "text",
-        heading: "The approach",
-        body:
-          "I interviewed twelve freelancers and shadowed three through a full billing cycle. Three principles fell out of that research: speed over settings, money you can see, and follow-ups the app sends so you don’t have to.\n\nThe home screen became a simple timeline of money in motion — what’s drafted, what’s sent, what’s overdue — with one primary action always within thumb’s reach. I ran weekly crit with the second designer on the team, using the principles as the rubric so feedback stayed about the work.",
-      },
-      {
-        type: "stats",
-        items: [
-          { number: "+38%", label: "More invoices sent" },
-          { number: "2.1×", label: "Faster payment time" },
-          { number: "4.8★", label: "App Store rating" },
-        ],
+        src: "images/payflow/Frame 2147228507.png",
+        caption: "Enterprise Ingestion flow and its various entry points",
       },
       {
         type: "image",
-        src: "images/payflow/shot-2.svg",
-        caption: "The final home screen and payment timeline.",
+        src: "images/payflow/Frame 2147228511(1).png",
+        caption: "Player Analytics Dashboard and Detail Views",
+      },
+      {
+        type: "image",
+        src: "images/payflow/Frame 2147228508(1).png",
+        caption: "Allocation and Management Screens for tracking across enterprise",
+      },
+      {
+        type: "image",
+        src: "images/payflow/0b9052f0-693a-48fc-96da-7621657b189d.png",
+        caption: "User Management Screens from the Admin view",
+      },
+      {
+        type: "image",
+        src: "images/payflow/ChatGPT Image Aug 27, 2026, 04_46_39 AM.png",
+        caption: "Detailed Roles and Mulitple Orgs available in the complex flow",
+      },
+      {
+        type: "image",
+        src: "images/payflow/FireShot Capture 002 - Lovable App - runiq-org-nexus.lovable.app.png",
+        caption: "New Tiered Pricing including the Enterprise level plans",
       },
       {
         type: "quote",
-        body: "Payflow turned my most dreaded admin task into a thirty-second habit.",
-        by: "Beta user, month two",
-      },
-      {
-        type: "text",
-        heading: "The outcome",
-        body:
-          "We launched to 5,000 wait-listed users in May. Beyond the numbers, the most telling signal was behavioural: overdue follow-ups — the feature people feared would feel rude — became the most-loved part of the product in reviews.",
+        body: "this dashboard will make keeping track of stats long term way easier",
+        by: "Coach Brendan, Beta User",
       },
     ],
   },
@@ -244,7 +244,7 @@ const CASE_STUDIES = [
     subtitle: "Leading design for a mobile app that helps freelancers send invoices in under a minute and get paid twice as fast.",
     cover: "images/payflow/cover.svg",
     tags: ["Mobile app", "Fintech", "2026"],
-    color: "blue",
+    color: "green",
     size: "normal",
 
     meta: [
@@ -295,51 +295,6 @@ const CASE_STUDIES = [
         heading: "The outcome",
         body:
           "We launched to 5,000 wait-listed users in May. Beyond the numbers, the most telling signal was behavioural: overdue follow-ups — the feature people feared would feel rude — became the most-loved part of the product in reviews.",
-      },
-    ],
-  },
-
-  /* ----- Project 3 ------------------------------------------------------ */
-  {
-    id: "bloom",
-    title: "Bloom — a calmer way to learn",
-    subtitle: "Redesigning an online learning platform around focus, streaks and small wins.",
-    cover: "images/bloom/cover.svg",
-    tags: ["Web platform", "EdTech", "2025"],
-    color: "green",
-    size: "normal",
-
-    meta: [
-      { label: "Role",     value: "Product Designer" },
-      { label: "Timeline", value: "Aug – Dec 2025" },
-      { label: "Platform", value: "Responsive web" },
-      { label: "Team",     value: "2 designers, 5 engineers" },
-    ],
-
-    sections: [
-      {
-        type: "text",
-        heading: "The problem",
-        body:
-          "Bloom’s completion rate was stuck at 9%. Learners loved the content but drowned in it — endless course grids, no sense of progress, and a dashboard that felt like homework before the homework.",
-      },
-      {
-        type: "image",
-        src: "images/bloom/shot-1.svg",
-        caption: "The new focus view: one lesson, one goal, one gentle streak.",
-      },
-      {
-        type: "text",
-        heading: "What changed",
-        body:
-          "We replaced the dashboard with a single question — “Got 15 minutes?” — and rebuilt progress around tiny, visible wins. Streaks forgive a missed day. Celebrations are quiet. Nothing shames you for being busy.\n\nThe design system leaned on soft tonal surfaces and one confident green, so the interface itself felt like a deep breath.",
-      },
-      {
-        type: "stats",
-        items: [
-          { number: "3.2×", label: "Course completion" },
-          { number: "+41%", label: "Weekly active learners" },
-        ],
       },
     ],
   },
