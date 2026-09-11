@@ -179,7 +179,7 @@ const CASE_STUDIES = [
     id: "payflow",
     title: "B2B & Analytics Dashboard",
     subtitle: "Entire end to end, B2B and Analytics Dashboard",
-    cover: "images/payflow/cover.svg",
+    cover: "images/payflow/Gemini_Generated_Image_ua3u1lua3u1lua3u.jpg.jpeg",
     tags: ["Mobile app", "Fintech", "2026"],
     color: "green",
     size: "normal",
@@ -197,6 +197,11 @@ const CASE_STUDIES = [
         heading: "The problem",
         body:
           "We had to solve the B2B Enterpirse side scope of the product.",
+      },
+      {
+        type: "image",
+        src: "images/payflow/converted-image.png",
+        caption: "B2B and enterprise introduced countless tiered views, new fearures and entitlements, i built a complete userjourney around the userflow and mapped how the new features would work out",
       },
       {
         type: "image",
