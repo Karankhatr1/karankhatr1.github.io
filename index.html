@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lokesh — Product Designer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Floating Nav Pill -->
+  <header class="nav-header">
+    <nav class="nav-pill">
+      <a href="index.html" class="nav-item active">Home</a>
+      <a href="#experience" class="nav-item">About</a>
+      <a href="blog.html" class="nav-item">Blog</a>
+      <a href="assets/resume.pdf" target="_blank" rel="noopener" class="nav-item">Resume</a>
+    </nav>
+  </header>
+
+  <div class="page-wrap">
+    
+    <!-- Hero Section -->
+    <header class="hero-block">
+      <div class="hero-avatar-wrap">
+        <div class="hero-avatar" id="heroAvatar" title="Lokesh">
+          <img 
+            src="assets/avatar.png" 
+            alt="Lokesh" 
+            id="avatarImg" 
+            onerror="this.style.display='none'; document.getElementById('avatarFallbackSvg').style.display='block';" 
+          />
+          <svg class="avatar-vector-fallback" id="avatarFallbackSvg" viewBox="0 0 200 220" fill="none" style="display:none;">
+            <circle cx="100" cy="95" r="38" fill="#fbcfe8"/>
+            <path d="M68 185C68 145 82 132 100 132C118 132 132 145 132 185" fill="#18181b"/>
+            <circle cx="89" cy="92" r="4" fill="#18181b"/>
+            <circle cx="111" cy="92" r="4" fill="#18181b"/>
+            <path d="M96 106C98 108 102 108 104 106" stroke="#18181b" stroke-width="2" stroke-linecap="round"/>
+            <path d="M72 84C78 68 90 62 100 62C118 62 128 72 128 86C120 78 110 78 100 78C88 78 78 80 72 84Z" fill="#18181b"/>
+            <rect x="74" y="165" width="52" height="30" rx="3" fill="#71717a"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="hero-info">
+        <h2 class="hero-greeting">Hi, I’m Lokesh,</h2>
+        <h1 class="hero-headline">I turn user needs into products that drive growth.</h1>
+        <p class="hero-bio">
+          Product designer with 3 years of experience. I’ve owned a trading app responsible for 97% of company revenue, built our first referral-partner B2B product, and taken an AI agent platform from 0→1.
+        </p>
+        <div class="hero-ctas">
+          <a href="assets/resume.pdf" target="_blank" rel="noopener" class="btn-pill btn-dark">
+            Resume <span style="font-size:14px;">→</span>
+          </a>
+          <a href="https://linkedin.com" target="_blank" rel="noopener" class="btn-pill btn-outline">
+            <svg class="linkedin-logo-icon" width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/>
+            </svg>
+            LinkedIn
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- 2x2 Portfolio Case Studies Grid -->
+    <section class="case-grid">
+      
+      <!-- Card 1: Links directly to case-study-rupeezy.html -->
+      <a href="case-study-rupeezy.html" class="case-card">
+        <div class="card-thumb">
+          <svg width="220" height="220" viewBox="0 0 260 260" fill="none">
+            <rect x="25" y="25" width="120" height="210" rx="20" fill="white" stroke="#E5E7EB" stroke-width="2.5"/>
+            <rect x="40" y="45" width="90" height="12" rx="3" fill="#F3F4F6"/>
+            <rect x="40" y="85" width="90" height="40" rx="6" fill="#F8FAFC" stroke="#E2E8F0"/>
+            <rect x="95" y="38" width="135" height="215" rx="22" fill="white" stroke="#D1D5DB" stroke-width="3" filter="drop-shadow(0 14px 25px rgba(0,0,0,0.08))"/>
+            <rect x="135" y="46" width="55" height="8" rx="4" fill="#111827"/>
+            <rect x="110" y="70" width="105" height="22" rx="6" fill="#3B0764"/>
+            <rect x="110" y="100" width="80" height="14" rx="3" fill="#1E293B"/>
+            <rect x="110" y="122" width="50" height="8" rx="2" fill="#10B981"/>
+            <rect x="110" y="145" width="105" height="40" rx="8" fill="#F1F5F9"/>
+            <rect x="125" y="195" width="75" height="14" rx="7" fill="#0071E3"/>
+          </svg>
+        </div>
+        <div class="case-flyout">
+          <h3 class="flyout-h">Two apps into one, built to hold the third</h3>
+          <p class="flyout-sub">Rupeezy · Sole designer · Consumer app</p>
+          <div class="flyout-stats">
+            <span>200K+ <span class="stat-light">registered users</span></span>
+            <span class="sep">•</span>
+            <span>97% <span class="stat-light">of company revenue</span></span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Card 2: Rise B2B -->
+      <div class="case-card">
+        <div class="card-thumb">
+          <svg width="240" height="160" viewBox="0 0 240 160" fill="none">
+            <rect width="240" height="160" rx="12" fill="white" stroke="#E5E7EB" stroke-width="2"/>
+            <rect x="12" y="12" width="40" height="136" rx="6" fill="#F8FAFC"/>
+            <rect x="60" y="12" width="168" height="28" rx="6" fill="#EFF6FF"/>
+            <rect x="60" y="48" width="80" height="44" rx="6" fill="#F8FAFC" stroke="#E2E8F0"/>
+            <rect x="148" y="48" width="80" height="44" rx="6" fill="#F8FAFC" stroke="#E2E8F0"/>
+            <rect x="60" y="100" width="168" height="48" rx="6" fill="#F8FAFC" stroke="#E2E8F0"/>
+          </svg>
+        </div>
+        <div class="case-flyout">
+          <h3 class="flyout-h">Rise: Referral &amp; Partner Hub</h3>
+          <p class="flyout-sub">Rise · Lead designer · Fintech B2B</p>
+          <div class="flyout-stats">
+            <span>0 → 1 <span class="stat-light">launch</span></span>
+            <span class="sep">•</span>
+            <span>₹35L+ <span class="stat-light">payouts</span></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3: Runable AI -->
+      <div class="case-card">
+        <div class="card-thumb">
+          <svg width="240" height="160" viewBox="0 0 240 160" fill="none">
+            <rect width="240" height="160" rx="12" fill="white" stroke="#E5E7EB" stroke-width="2"/>
+            <circle cx="20" cy="16" r="3.5" fill="#EF4444"/>
+            <circle cx="30" cy="16" r="3.5" fill="#F59E0B"/>
+            <circle cx="40" cy="16" r="3.5" fill="#10B981"/>
+            <rect x="40" y="45" width="160" height="18" rx="4" fill="#F3F4F6"/>
+            <rect x="60" y="76" width="120" height="32" rx="16" fill="#EFF6FF" stroke="#3B82F6"/>
+          </svg>
+        </div>
+        <div class="case-flyout">
+          <h3 class="flyout-h">Runable AI: Workflow Platform</h3>
+          <p class="flyout-sub">Runable AI · Founding Designer · Web app</p>
+          <div class="flyout-stats">
+            <span>0 to Public Launch</span>
+            <span class="sep">•</span>
+            <span>No PM</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 4: Apple Aurora Glow & Morph -->
+      <div class="case-card card-next-interactive" id="cardNext">
+        <div class="apple-aurora-glow">
+          <div class="aurora-orb orb-tl"></div>
+          <div class="aurora-orb orb-br"></div>
+          <div class="aurora-orb orb-center"></div>
+        </div>
+        <div class="next-text-frame">
+          <span class="next-kicker-tag">NEXT</span>
+          <div class="next-label-stack">
+            <p class="label-state label-default">More case studies are being written up.</p>
+            <p class="label-state label-hover">Coming soon</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Experience Timeline -->
+    <section class="timeline-wrap" id="experience">
+      <div class="timeline-stack">
+        <div class="timeline-entry is-now">
+          <div class="t-col-left">
+            <span class="now-tag">NOW</span>
+            <div class="t-node"></div>
+          </div>
+          <div class="t-col-right">
+            <div class="company-badge-zone" id="companyBadgeZone">
+              <div class="view-state-default" id="stateDefault">
+                <span>Your company here</span>
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                  <path d="M12 20h9"></path>
+                  <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+                </svg>
+              </div>
+              <div class="view-state-editing" id="stateEditing">
+                <input type="text" class="company-edit-input" id="companyEditInput" placeholder="Company name" autocomplete="off" spellcheck="false" />
+                <button class="btn-save-check" id="btnSaveCompany" title="Save">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                </button>
+              </div>
+              <div class="view-state-saved" id="stateSaved">
+                <span class="saved-company-text" id="savedCompanyName"></span>
+                <div class="saved-actions">
+                  <button class="action-icon-btn" id="btnEditSaved" title="Edit company name">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                      <path d="M12 20h9"></path>
+                      <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+                    </svg>
+                  </button>
+                  <button class="action-icon-btn" id="btnClearSaved" title="Reset">
+                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                      <line x1="18" y1="6" x2="6" y2="18"></line>
+                      <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <h4 class="t-role-title">Product Designer</h4>
+            <p class="t-desc" id="nowSubtitle">Open to work. The problem matters more than the industry.</p>
+          </div>
+        </div>
+
+        <div class="timeline-entry">
+          <div class="t-col-left"><span>DEC 2025 – APR 2026</span><div class="t-node"></div></div>
+          <div class="t-col-right">
+            <h3 class="t-company-name">ZZAZZ AI</h3>
+            <h4 class="t-sub-role">Product Designer</h4>
+            <p class="t-desc">Priced content for the post-AI web. Designed the publisher product and rebuilt the payment flow from seven steps to four.</p>
+          </div>
+        </div>
+        <div class="timeline-entry">
+          <div class="t-col-left"><span>SEP 2025 – NOV 2025</span><div class="t-node"></div></div>
+          <div class="t-col-right">
+            <h3 class="t-company-name">Runable AI</h3>
+            <h4 class="t-sub-role">Founding Product Designer</h4>
+            <p class="t-desc">Only designer, no PM. Took an AI agent platform from concept to public launch.</p>
+          </div>
+        </div>
+        <div class="timeline-entry">
+          <div class="t-col-left"><span>FEB 2024 – AUG 2025</span><div class="t-node"></div></div>
+          <div class="t-col-right">
+            <h3 class="t-company-name">Rupeezy</h3>
+            <h4 class="t-sub-role">Product Designer</h4>
+            <p class="t-desc">Owned the trading app end to end: 200K+ registered users, 97% of company revenue. Built the partner platform and the design system.</p>
+          </div>
+        </div>
+        <div class="timeline-entry">
+          <div class="t-col-left"><span>APR 2023 – JAN 2024</span><div class="t-node"></div></div>
+          <div class="t-col-right">
+            <h3 class="t-company-name">Sustainability Economics.ai</h3>
+            <h4 class="t-sub-role">UI/UX Designer</h4>
+            <p class="t-desc">Sole designer on a net-zero carbon accounting platform. Built for banks, insurers and corporates.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Minimal Apple Footer -->
+    <footer class="site-footer">
+      <p>Designed and built by 🧔‍♂️, with <span class="sparkle-icon">✦</span> that argued back.</p>
+    </footer>
+
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>

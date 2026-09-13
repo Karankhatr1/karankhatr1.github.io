@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Case Study: Rupeezy — Lokesh</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Floating Nav Pill -->
+  <header class="nav-header">
+    <nav class="nav-pill">
+      <a href="index.html" class="nav-item">← Back</a>
+      <a href="index.html#experience" class="nav-item">About</a>
+      <a href="blog.html" class="nav-item">Blog</a>
+      <a href="assets/resume.pdf" target="_blank" rel="noopener" class="nav-item">Resume</a>
+    </nav>
+  </header>
+
+  <div class="page-wrap">
+    <article>
+      
+      <!-- Block 1: Header & Metadata -->
+      <header class="cs-header">
+        <span class="cs-eyebrow">CASE STUDY · RUPEEZY</span>
+        <h1 class="cs-title">Two apps into one, built to hold the third</h1>
+        <p class="cs-subtitle">One navigation model for stocks, F&O and mutual funds.</p>
+        <div class="cs-meta-stack">
+          <span>Sole designer · 1 PM, 7 engineers, reporting to a design manager</span>
+          <span>Rupeezy (founded 2003, ~125 people), Nov 2024 – Aug 2025</span>
+        </div>
+      </header>
+
+      <!-- Block 2: Key Metrics Ribbon -->
+      <section class="metric-ribbon">
+        <div class="metric-cell">
+          <div class="cell-caption">CONCENTRATION</div>
+          <div class="cell-stat">97%</div>
+          <div class="cell-desc">of revenue in one product</div>
+        </div>
+        <div class="metric-cell">
+          <div class="cell-caption">REGULATION</div>
+          <div class="cell-stat danger">↘ ~75%</div>
+          <div class="cell-desc">trading revenue lost in 5 months</div>
+        </div>
+        <div class="metric-cell">
+          <div class="cell-caption">TODAY</div>
+          <div class="cell-stat">3</div>
+          <div class="cell-desc">products on one navigation model</div>
+        </div>
+      </section>
+
+      <!-- Block 3: Interactive Before/After Visual Comparison -->
+      <section class="comparison-block">
+        <div class="comp-toggle-row">
+          <button class="comp-btn active" id="btnShowBefore">Before: Split Apps</button>
+          <button class="comp-btn" id="btnShowAfter">After: 2-Axis Nav</button>
+        </div>
+        <div class="comp-screen active" id="screenBefore">
+          <div style="background:#fff; border-radius:14px; padding:20px; border:1px solid #fee2e2;">
+            <span style="font-size:10px; font-family:var(--font-mono); color:var(--apple-red); font-weight:600;">BEFORE</span>
+            <p style="font-size:13px; margin-top:6px; color:var(--apple-secondary);">Trade (Stocks/F&O) and Invest (Mutual Funds) were two separate apps with disjointed logins.</p>
+          </div>
+        </div>
+        <div class="comp-screen" id="screenAfter">
+          <div style="background:#fff; border-radius:14px; padding:20px; border:1px solid #bbf7d0;">
+            <span style="font-size:10px; font-family:var(--font-mono); color:var(--apple-green); font-weight:600;">AFTER</span>
+            <p style="font-size:13px; margin-top:6px; color:var(--apple-secondary);">Single app shell. Fixed journey axis on bottom, asset switcher on top.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Block 4: The Short Version Callout -->
+      <section class="callout-summary">
+        <div class="callout-title">THE SHORT VERSION</div>
+        <p>Rupeezy had two apps: a trading app carrying <strong>97% of company revenue</strong>, and a separate mutual fund app.</p>
+        <p>A SEBI regulation cut trading revenue by <strong>roughly 75%</strong>, and merging stopped being optional. The obvious answer was a mode switch between products, so that's what shipped first.</p>
+        <p>A switch holds two products, and commodities were already coming. I designed the model that replaced it: Navigation split into two axes, one for the journey and one for the product.</p>
+      </section>
+
+      <!-- Block 5: Chapter 01 & Dual Comparative Cards -->
+      <section class="cs-chapter">
+        <div class="chapter-badge">01 WHERE THIS STARTED</div>
+        <h2>Two apps, one customer, and a banner pointing at the other one</h2>
+        <div class="dual-box-row">
+          <div class="sub-box">
+            <span class="box-tag">RUPEEZY TRADE</span>
+            <div class="box-main">A retail trader</div>
+            <div class="box-info">Stocks and F&amp;O. <strong>97% of company revenue.</strong> Owned end to end.</div>
+          </div>
+          <div class="sub-box">
+            <span class="box-tag">RUPEEZY INVEST</span>
+            <div class="box-main">An investor</div>
+            <div class="box-info">Mutual funds. Smaller user base with separate catalog.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Block 6: Media Image Block with Caption -->
+      <figure class="media-figure">
+        <div class="figure-art">
+          <span style="font-size:12px; font-family:var(--font-mono); color:#52525b;">[Image Block: In-app banner promoting secondary download]</span>
+        </div>
+        <figcaption class="figure-caption">That banner is the entire business problem sitting in production.</figcaption>
+      </figure>
+
+      <!-- Block 7: Editorial Quote Block -->
+      <blockquote class="quote-card">
+        “Every other broker has one app, so why do I need two?”
+        <cite class="quote-author">— Direct feedback from Google Play Store user reviews</cite>
+      </blockquote>
+
+      <!-- Block 8: Decision Cards (Rejected vs Chosen) -->
+      <section class="cs-chapter">
+        <div class="chapter-badge">05 HOW I WENT AT IT</div>
+        <h2>Architectural choices and trade-offs</h2>
+        <div class="decision-grid">
+          <div class="decision-card">
+            <span class="badge-pill badge-rejected">REJECTED</span>
+            <div class="decision-title">Top navigation</div>
+            <div class="decision-text">Carried indices and alerts. Adding a switch required redesigning 8 screens.</div>
+          </div>
+          <div class="decision-card">
+            <span class="badge-pill badge-rejected">REJECTED</span>
+            <div class="decision-title">Floating button</div>
+            <div class="decision-text">Only lived on Home screen. Users deep in stock pages were stranded.</div>
+          </div>
+          <div class="decision-card">
+            <span class="badge-pill badge-chosen">CHOSEN</span>
+            <div class="decision-title">Bottom navigation</div>
+            <div class="decision-text">Present on every screen. Context switch is always one tap away.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Block 9: Video Walkthrough Demo Block -->
+      <section class="cs-chapter">
+        <div class="chapter-badge">VIDEO DEMO BLOCK</div>
+        <h2>Fluid navigation in motion</h2>
+        <div class="video-card-wrap">
+          <div class="video-canvas">
+            <div class="play-btn-circle" onclick="alert('Plug your MP4 video tag here.');">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+              </svg>
+            </div>
+            <span style="font-size:12px; margin-top:12px; font-weight:500;">Click to play prototype walkthrough</span>
+          </div>
+          <div class="video-bar">
+            <span>RUPEEZY_TWO_AXIS.MP4</span>
+            <span>00:45 · 60 FPS</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Block 10: Interactive Prototype Simulator Block -->
+      <section class="cs-chapter">
+        <div class="chapter-badge">INTERACTIVE PROTOTYPE SIMULATOR</div>
+        <h2>Test the 2-Axis Switcher Directly</h2>
+        <div class="simulator-container">
+          <div class="phone-mock-frame">
+            <div class="top-axis-tabs">
+              <button class="axis-tab-btn active" data-axis="stocks">Stocks</button>
+              <button class="axis-tab-btn" data-axis="fno">F&amp;O</button>
+              <button class="axis-tab-btn" data-axis="funds">Mutual Funds</button>
+            </div>
+            <div class="phone-screen-body">
+              <div class="tab-content-panel active" id="panel-stocks">
+                <span style="font-size:10px; color:#888;">HOLDINGS</span>
+                <h4 style="font-size:20px; margin:2px 0 12px;">₹ 4,12,850</h4>
+                <div class="stock-row"><span>RELIANCE</span><span style="color:var(--apple-green);">+ ₹2,340</span></div>
+                <div class="stock-row"><span>HDFC BANK</span><span style="color:var(--apple-green);">+ ₹1,120</span></div>
+              </div>
+              <div class="tab-content-panel" id="panel-fno">
+                <span style="font-size:10px; color:#888;">POSITIONS (2)</span>
+                <h4 style="font-size:20px; margin:2px 0 12px; color:var(--apple-red);">- ₹ 1,450</h4>
+                <div class="stock-row"><span>NIFTY 24500 CE</span><span style="color:var(--apple-red);">- ₹850</span></div>
+                <div class="stock-row"><span>BANKNIFTY PE</span><span style="color:var(--apple-red);">- ₹600</span></div>
+              </div>
+              <div class="tab-content-panel" id="panel-funds">
+                <span style="font-size:10px; color:#888;">SIP VALUE</span>
+                <h4 style="font-size:20px; margin:2px 0 12px;">₹ 8,90,000</h4>
+                <div class="stock-row"><span>Quant Active Fund</span><span style="color:var(--apple-green);">+ 18.4%</span></div>
+                <div class="stock-row"><span>Parag Parikh Flexi</span><span style="color:var(--apple-green);">+ 14.1%</span></div>
+              </div>
+            </div>
+            <div class="bottom-axis-nav">
+              <span class="active">Home</span>
+              <span>Watchlist</span>
+              <span>Orders</span>
+              <span>Portfolio</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Block 11: Rollout Step Cards & Claims Grid -->
+      <section class="cs-chapter">
+        <div class="chapter-badge">PROGRESSIVE ROLLOUT STEPS</div>
+        <h2>Migrating users without shocking them</h2>
+        <div class="rollout-steps-grid">
+          <div class="step-card">
+            <span class="step-badge">01</span>
+            <div class="step-status">DISMISSIBLE</div>
+            <div class="step-desc">In-app banner in Rupeezy Invest announcing the unified merge.</div>
+          </div>
+          <div class="step-card">
+            <span class="step-badge">02</span>
+            <div class="step-status">MANDATORY</div>
+            <div class="step-desc">Full modal prompt. The only action left is launching the unified app.</div>
+          </div>
+          <div class="step-card">
+            <span class="step-badge">03</span>
+            <div class="step-status">SUNSET</div>
+            <div class="step-desc">Invest app leaves app stores completely. Zero account fragmentation.</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="cs-chapter">
+        <div class="chapter-badge">WHAT I CAN CLAIM</div>
+        <h2>Business and technical outcomes</h2>
+        <div class="claims-grid">
+          <div class="claim-item"><div class="claim-kicker">NAVIGATION</div><div class="claim-stat">3 products</div><div class="claim-desc">Unified across stocks, F&amp;O, and commodities.</div></div>
+          <div class="claim-item"><div class="claim-kicker">MAINTENANCE</div><div class="claim-stat">4 → 3</div><div class="claim-desc">Two engineering squads merged into one squad.</div></div>
+          <div class="claim-item"><div class="claim-kicker">COMPLIANCE</div><div class="claim-stat">Once</div><div class="claim-desc">Regulatory shifts implemented once on a unified repo.</div></div>
+        </div>
+      </section>
+
+      <footer style="margin-top:54px; padding-top:20px; border-top:1px solid var(--apple-card-border);">
+        <a href="index.html" class="btn-pill btn-outline" style="width:100%; justify-content:center; padding:12px;">← Back to Home</a>
+      </footer>
+
+    </article>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>
