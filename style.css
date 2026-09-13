@@ -265,6 +265,7 @@ a { color: inherit; text-decoration: none; }
   cursor: pointer;
   border: 1px solid var(--apple-card-border);
   transition: transform 0.35s var(--ease-apple), box-shadow 0.35s var(--ease-apple);
+  padding: 12px;
 }
 
 .case-card:hover {
