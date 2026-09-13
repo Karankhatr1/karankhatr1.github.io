@@ -84,27 +84,30 @@ a { color: inherit; text-decoration: none; }
    ========================================================================== */
 .hero-block {
   display: grid;
-  grid-template-columns: 1fr 1.15fr; /* balances visual weight between avatar and text */
-  gap: 48px;
-  align-items: center;              /* vertically centers copy against the image */
+  grid-template-columns: 280px 1fr;
+  gap: 44px;
+  align-items: stretch; /* stretches both columns to equal height */
   padding: 40px 0 72px;
 }
 
-.hero-avatar-wrap { display: flex; height: 100%; }
+.hero-avatar-wrap {
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
 
 .hero-avatar {
   width: 100%;
-  height: 100%;
-  min-height: 348px;
-  background: radial-gradient(ellipse 92% 92% at 50% 50%, #e8eaee 0%, #f4f4f7 55%, #ffffff 100%);
-  border-radius: 40px;
+  height: 100%;         /* forces avatar box to match text column height */
+  min-height: 0;        /* overrides previous fixed minimums */
+  aspect-ratio: auto;   /* allows fluid height matching */
+  border-radius: 36px;
+  background: #eae6f5;  /* soft lilac tint */
   display: flex;
   align-items: flex-end;
   justify-content: center;
   position: relative;
   overflow: hidden;
-  cursor: pointer;
-  transition: transform 0.4s var(--ease-apple), box-shadow 0.4s var(--ease-apple);
 }
 
 /* Ultra-subtle Apple Intelligence sheen on hover */
@@ -137,15 +140,12 @@ a { color: inherit; text-decoration: none; }
 .hero-avatar:hover::before { opacity: 1; }
 
 .hero-avatar img {
-  position: relative;
-  z-index: 3;
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: bottom center;
-  transition: transform 0.5s var(--ease-apple);
-  display: block;
 }
+
 .hero-avatar:hover img { transform: scale(1.025); }
 .avatar-vector-fallback {
   position: relative;
@@ -367,46 +367,185 @@ a { color: inherit; text-decoration: none; }
 /* ==========================================================================
    Case Study Components
    ========================================================================== */
-.cs-header { margin-bottom: 32px; }
-.cs-eyebrow { font-size: 10px; font-family: var(--font-mono); letter-spacing: 0.1em; color: var(--apple-secondary); display: block; margin-bottom: 8px; }
-.cs-title { font-size: 32px; font-weight: 700; letter-spacing: -0.03em; line-height: 1.16; margin-bottom: 8px; }
-.cs-subtitle { font-size: 16px; color: var(--apple-secondary); margin-bottom: 16px; }
-.cs-meta-stack { font-size: 12px; color: var(--apple-secondary); display: flex; flex-direction: column; gap: 3px; }
-.metric-ribbon { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; padding: 20px 0; border-top: 1px solid var(--apple-card-border); border-bottom: 1px solid var(--apple-card-border); margin-bottom: 36px; }
-.metric-cell .cell-caption { font-size: 10px; font-family: var(--font-mono); color: var(--apple-secondary); margin-bottom: 4px; }
-.metric-cell .cell-stat { font-size: 26px; font-weight: 700; letter-spacing: -0.02em; }
-.metric-cell .cell-stat.danger { color: var(--apple-red); }
-.metric-cell .cell-desc { font-size: 11.5px; color: var(--apple-secondary); }
+.cs-header {
+  margin-bottom: 36px;
+}
+
+.cs-eyebrow {
+  font-size: 11px;
+  font-family: var(--font-mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--apple-secondary);
+  display: block;
+  margin-bottom: 12px;
+}
+
+.cs-title {
+  font-size: 38px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  color: #0f172a; /* deep pitch black */
+  margin-bottom: 12px;
+}
+
+.cs-subtitle {
+  font-size: 17px;
+  color: #4b5563; /* higher readability slate */
+  line-height: 1.5;
+  margin-bottom: 16px;
+}
+
+.cs-meta-stack {
+  font-size: 13px;
+  color: #6b7280;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.metric-ribbon {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  padding: 24px 0;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  margin-bottom: 48px;
+}
+
+.metric-cell .cell-caption {
+  font-size: 11px;
+  font-family: var(--font-mono);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #6b7280;
+  margin-bottom: 6px;
+}
+
+.metric-cell .cell-stat {
+  font-size: 34px;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: #0f172a;
+  line-height: 1.1;
+  margin-bottom: 4px;
+}
+
+.metric-cell .cell-stat.danger {
+  color: #ef4444; /* sharp red accent */
+}
+
+.metric-cell .cell-desc {
+  font-size: 13px;
+  color: #4b5563;
+  line-height: 1.4;
+}
+
 .comparison-block { background: var(--apple-card); border-radius: 20px; padding: 16px; margin: 32px 0; border: 1px solid var(--apple-card-border); }
 .comp-toggle-row { display: flex; justify-content: center; gap: 8px; margin-bottom: 14px; }
 .comp-btn { padding: 5px 14px; border-radius: 9999px; border: 1px solid rgba(0,0,0,0.1); background: #fff; font-size: 12px; font-weight: 600; color: var(--apple-secondary); cursor: pointer; }
 .comp-btn.active { background: var(--apple-text); color: #fff; border-color: var(--apple-text); }
 .comp-screen { display: none; text-align: center; }
 .comp-screen.active { display: block; animation: fadeIn 0.25s var(--ease-apple); }
-.callout-summary { background: var(--apple-card); border-left: 3px solid var(--apple-text); border-radius: 4px 16px 16px 4px; padding: 22px; margin: 36px 0; }
-.callout-title { font-size: 10px; font-family: var(--font-mono); color: var(--apple-secondary); margin-bottom: 10px; }
-.callout-summary p { font-size: 13.5px; color: var(--apple-secondary); line-height: 1.6; margin-bottom: 10px; }
-.cs-chapter { margin: 40px 0; }
-.chapter-badge { font-size: 10px; font-family: var(--font-mono); color: var(--apple-blue); font-weight: 600; margin-bottom: 6px; }
-.cs-chapter h2 { font-size: 22px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 12px; }
-.cs-chapter p { font-size: 14px; color: var(--apple-secondary); line-height: 1.65; margin-bottom: 16px; }
-.dual-box-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0; }
-.sub-box { background: var(--apple-card); border-radius: 14px; padding: 16px; border: 1px solid var(--apple-card-border); }
+.callout-summary {
+  background: #f8fafc;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-left: 3px solid #0f172a;
+  border-radius: 4px 16px 16px 4px;
+  padding: 24px 28px;
+  margin: 36px 0;
+}
+
+.callout-title {
+  font-size: 11px;
+  font-family: var(--font-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #6b7280;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+.callout-summary p {
+  font-size: 14.5px;
+  color: #374151;
+  line-height: 1.6;
+  margin-bottom: 0;
+}
+.cs-chapter {
+  margin: 64px 0 36px; /* increased section breathing room */
+}
+
+.chapter-badge {
+  font-size: 11px;
+  font-family: var(--font-mono);
+  color: var(--apple-blue);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.cs-chapter h2 {
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  line-height: 1.25;
+  color: #0f172a;
+  margin-bottom: 16px;
+}
+
+.cs-chapter p {
+  font-size: 16px;       /* upgraded from 14px */
+  color: #374151;        /* dark charcoal instead of washed out gray */
+  line-height: 1.7;      /* editorial line-height */
+  margin-bottom: 20px;
+}
+
+.dual-box-row,
+.decision-grid,
+.claims-grid {
+  gap: 16px;
+  margin: 28px 0;
+}
+
+.sub-box,
+.decision-card,
+.claim-item {
+  background: #f8fafc;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 16px;
+  padding: 18px 20px;
+}
+
+.box-main,
+.decision-title,
+.claim-stat {
+  font-size: 15px;
+  font-weight: 600;
+  color: #0f172a;
+  margin-bottom: 6px;
+}
+
+.box-info,
+.decision-text,
+.claim-desc {
+  font-size: 13px;
+  color: #4b5563;
+  line-height: 1.5;
+}
+
 .box-tag { font-size: 9.5px; font-family: var(--font-mono); color: var(--apple-secondary); display: block; margin-bottom: 4px; }
-.box-main { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
-.box-info { font-size: 12px; color: var(--apple-secondary); line-height: 1.4; }
 .media-figure { background: var(--apple-card); border: 1px solid var(--apple-card-border); border-radius: 18px; overflow: hidden; margin: 28px 0; }
 .figure-art { height: 180px; display: flex; align-items: center; justify-content: center; background: #eaedf2; }
 .figure-caption { padding: 12px 16px; font-size: 12px; color: var(--apple-secondary); text-align: center; }
 .quote-card { border-left: 2px solid #d1d1d6; padding: 12px 18px; margin: 24px 0; font-size: 14px; font-style: italic; color: var(--apple-text); }
 .quote-author { font-size: 11px; font-style: normal; color: var(--apple-secondary); display: block; margin-top: 4px; }
-.decision-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 24px 0; }
-.decision-card { background: var(--apple-card); border: 1px solid var(--apple-card-border); border-radius: 14px; padding: 14px; }
 .badge-pill { font-size: 9px; font-weight: 700; padding: 3px 8px; border-radius: 9999px; display: inline-block; margin-bottom: 8px; }
 .badge-rejected { background: #fee2e2; color: var(--apple-red); }
 .badge-chosen { background: #dcfce7; color: var(--apple-green); }
-.decision-title { font-size: 12.5px; font-weight: 600; margin-bottom: 4px; }
-.decision-text { font-size: 11.5px; color: var(--apple-secondary); line-height: 1.4; }
 .video-card-wrap { background: #000; border-radius: 18px; overflow: hidden; margin: 32px 0; color: #fff; }
 .video-canvas { height: 260px; background: linear-gradient(135deg, #18181b, #27272a); display: flex; flex-direction: column; align-items: center; justify-content: center; }
 .play-btn-circle { width: 50px; height: 50px; background: rgba(255,255,255,0.22); backdrop-filter: blur(12px); border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; }
@@ -427,11 +566,7 @@ a { color: inherit; text-decoration: none; }
 .step-badge { font-size: 9px; font-family: var(--font-mono); color: var(--apple-secondary); margin-bottom: 4px; display: block; }
 .step-status { font-size: 12px; font-weight: 700; margin-bottom: 4px; }
 .step-desc { font-size: 11.5px; color: var(--apple-secondary); line-height: 1.4; }
-.claims-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 24px 0; }
-.claim-item { background: var(--apple-card); border: 1px solid var(--apple-card-border); border-radius: 14px; padding: 16px; }
 .claim-kicker { font-size: 9.5px; font-family: var(--font-mono); color: var(--apple-secondary); margin-bottom: 4px; }
-.claim-stat { font-size: 20px; font-weight: 700; margin-bottom: 4px; }
-.claim-desc { font-size: 11.5px; color: var(--apple-secondary); line-height: 1.35; }
 
 .site-footer {
   margin-top: 80px;
