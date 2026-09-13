@@ -265,7 +265,7 @@ a { color: inherit; text-decoration: none; }
   cursor: pointer;
   border: 1px solid var(--apple-card-border);
   transition: transform 0.35s var(--ease-apple), box-shadow 0.35s var(--ease-apple);
-  padding: 12px;
+
 }
 
 .case-card:hover {
@@ -284,8 +284,6 @@ a { color: inherit; text-decoration: none; }
 
 .card-thumb svg,
 .card-thumb img {
-  transform: scale(1.15);
-  transform-origin: center center;
   max-width: 100%;
   height: auto;
 }
