@@ -1,0 +1,1829 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Streak & Expense Tracker - Standalone Demo</title>
+  <!-- Google Fonts: Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <style>
+    /* ==========================================================================
+       Pure Vanilla CSS - Zero external dependencies, Drop-in ready
+       Phone Dimensions: 395px x 900px
+       ========================================================================== */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background-color: #0a0b0d;
+      color: #ffffff;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 12px;
+    }
+
+    /* 778px Phone Shell (-10%) */
+    .phone-mockup {
+      position: relative;
+      width: 356px;
+      max-width: 100%;
+      height: 778px;
+      background: #111215;
+      border-radius: 44px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      color: #ffffff;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.9),
+                  0 0 0 9px #1e2227,
+                  0 0 0 11px #2d333b;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      user-select: none;
+    }
+
+    /* Status Bar */
+    .status-bar {
+      position: relative;
+      z-index: 50;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 24px 4px;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #8e94a0;
+      transition: color 0.3s ease;
+    }
+
+    .phone-mockup.is-expanded .status-bar {
+      color: #121417;
+    }
+
+    .dynamic-island {
+      position: absolute;
+      left: 50%;
+      top: 12px;
+      transform: translateX(-50%);
+      width: 84px;
+      height: 22px;
+      background: #000000;
+      border-radius: 9999px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding-right: 8px;
+      pointer-events: none;
+    }
+    .island-lens {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #161a22;
+      border: 1px solid #232730;
+    }
+
+    .status-icons {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .status-icons svg {
+      width: 14px;
+      height: 14px;
+      fill: currentColor;
+    }
+
+    /* Screens Track */
+    .screens-container {
+      position: relative;
+      flex: 1;
+      width: 100%;
+      overflow: hidden;
+    }
+
+    .screen-view {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 24px 24px 24px;
+      opacity: 0;
+      transform: translateX(35px);
+      pointer-events: none;
+      transition: opacity 0.3s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      overflow-y: auto;
+      scrollbar-width: none;
+    }
+    .screen-view::-webkit-scrollbar { display: none; }
+
+    .screen-view.active {
+      opacity: 1;
+      transform: translateX(0);
+      pointer-events: auto;
+    }
+    .screen-view.exited-left {
+      opacity: 0;
+      transform: translateX(-35px);
+      pointer-events: none;
+    }
+
+    /* ---------------- SCREEN 1: WALLET STREAK ---------------- */
+    #screen1 {
+      padding: 16px 20px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .screen1-top-group {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 28px;
+      margin: auto 0;
+      width: 100%;
+    }
+
+    .screen1-bottom-group {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-top: auto;
+    }
+
+    .wallet-glow-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .wallet-ambient-glow {
+      position: absolute;
+      inset: 0;
+      background: rgba(123, 228, 0, 0.22);
+      filter: blur(24px);
+      border-radius: 9999px;
+      transform: scale(1.25);
+      pointer-events: none;
+    }
+    .wallet-glow-wrap svg {
+      position: relative;
+      filter: drop-shadow(0 12px 28px rgba(114, 216, 0, 0.35));
+    }
+
+    .streak-hero-block {
+      text-align: center;
+      padding: 0 4px;
+    }
+
+    /* Luminous Streak Number */
+    .streak-big-num {
+      font-size: 52px;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      margin-bottom: 4px;
+      cursor: pointer;
+      background: linear-gradient(180deg, #f3ff99 0%, #8ef707 50%, #6ed200 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 4px 22px rgba(123, 228, 0, 0.38));
+      transition: transform 0.15s ease;
+    }
+    .streak-big-num:hover { transform: scale(1.05); }
+
+    .streak-title {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #ffffff;
+      margin-bottom: 6px;
+    }
+
+    .streak-copy {
+      font-size: 12.5px;
+      line-height: 1.45;
+      color: #8e94a0;
+      max-width: 265px;
+      margin: 0 auto;
+    }
+    .streak-copy strong {
+      color: #ffffff;
+      font-weight: 700;
+    }
+
+    /* Days Streak Card */
+    .days-card {
+      width: 100%;
+      background: #181b22;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 22px;
+      padding: 14px;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.32);
+    }
+
+    .days-grid-labels {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      text-align: center;
+      margin-bottom: 12px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      color: rgba(255, 255, 255, 0.9);
+      padding: 0 4px;
+    }
+    .days-grid-labels .active-day-label {
+      color: #8ef707;
+      text-shadow: 0 0 8px rgba(142, 247, 7, 0.4);
+    }
+    .days-grid-labels .dim-day-label {
+      color: #4f5564;
+    }
+
+    .days-status-row {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      align-items: center;
+      justify-items: center;
+      gap: 6px;
+      padding: 0 2px;
+    }
+
+    /* Continuous Glowing Streak Pill spanning completed days */
+    .streak-pill-track {
+      grid-column: span 4;
+      width: 100%;
+      height: 40px;
+      border-radius: 9999px;
+      background: linear-gradient(180deg, #8bf509 0%, #60bf00 100%);
+      border: 2px solid #aeff26;
+      box-shadow: 0 4px 16px rgba(123, 228, 0, 0.45), inset 0 1px 2px rgba(255, 255, 255, 0.6);
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      align-items: center;
+      justify-items: center;
+      padding: 0 4px;
+    }
+
+    .pill-check {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .pill-check svg {
+      width: 16px;
+      height: 16px;
+      stroke: #0d1603;
+      stroke-width: 3.5;
+      fill: none;
+    }
+
+    .pill-check-active {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: #a3ff1a;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .pill-check-active svg {
+      width: 16px;
+      height: 16px;
+      stroke: #0a1302;
+      stroke-width: 3.5;
+      fill: none;
+    }
+
+    .day-slot-upcoming {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: #20232b;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-cta {
+      width: 100%;
+      background: #7be400;
+      color: #0e1014;
+      font-size: 14.5px;
+      font-weight: 900;
+      letter-spacing: 0.04em;
+      padding: 14px 20px;
+      border-radius: 20px;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      cursor: pointer;
+      box-shadow: 0 8px 24px rgba(123, 228, 0, 0.38);
+      transition: transform 0.15s ease, background 0.15s ease;
+    }
+    .btn-cta:hover {
+      background: #86f500;
+    }
+    .btn-cta:active {
+      transform: scale(0.98);
+    }
+
+    /* ---------------- SCREEN 2: STATS & VICES (With Top Space) ---------------- */
+    #screen2 {
+      padding-top: 24px;
+    }
+
+    .nav-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 38px;
+      margin-bottom: 6px;
+    }
+    .btn-nav-icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: #1a1c22;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform 0.15s ease;
+    }
+    .btn-nav-icon:active { transform: scale(0.95); }
+
+    .stat-hero-center {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      margin: auto 0;
+      width: 100%;
+      padding: 0 8px;
+    }
+    .stat-hero-number {
+      font-size: 58px;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      margin-bottom: 10px;
+      background: linear-gradient(180deg, #f3ff99 0%, #8ef707 50%, #6ed200 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 4px 24px rgba(123, 228, 0, 0.38));
+      position: relative;
+    }
+    .stat-hero-sub {
+      font-size: 13.5px;
+      line-height: 1.5;
+      color: #8e94a0;
+      max-width: 275px;
+      margin: 0 auto;
+      font-weight: 500;
+    }
+    .stat-hero-sub strong { color: #ffffff; font-weight: 700; }
+
+    .screen2-bottom-group {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-top: auto;
+    }
+
+    /* Goal Loader Card - Horizontal Multi-Shade Loader */
+    .goal-card {
+      width: 100%;
+      background: #191b20;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 22px;
+      padding: 16px;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
+    }
+    .goal-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .goal-title {
+      font-size: 14.5px;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: -0.02em;
+    }
+    .goal-subtitle {
+      font-size: 11px;
+      color: #8e94a0;
+      font-weight: 500;
+      margin-top: 2px;
+    }
+    .btn-view-report {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: none;
+      border: none;
+      color: #8e94a0;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 0;
+      transition: color 0.15s ease;
+    }
+    .btn-view-report:hover {
+      color: #7be400;
+    }
+    .btn-view-report svg {
+      transition: transform 0.15s ease;
+    }
+    .btn-view-report:hover svg {
+      transform: translateX(2px);
+    }
+    .goal-score-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 12px;
+      padding: 0 2px;
+    }
+    .goal-score-col {
+      display: flex;
+      flex-direction: column;
+    }
+    .goal-score-label {
+      font-size: 11px;
+      color: #8e94a0;
+      font-weight: 500;
+      margin-bottom: 2px;
+    }
+    .goal-score-num-wrap {
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+    }
+    .goal-score-num {
+      font-size: 38px;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      color: #ffffff;
+    }
+    .goal-score-unit {
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #8e94a0;
+    }
+    .goal-trend-col {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+    .goal-trend-status {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 800;
+      color: #7be400;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+    .goal-trend-sub {
+      font-size: 11px;
+      color: #8e94a0;
+      font-weight: 500;
+      margin-top: 2px;
+    }
+
+    /* Horizontal Segmented Loader Box */
+    .horizontal-loader-box {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+      padding: 12px;
+      margin-bottom: 12px;
+    }
+    .horizontal-segments-track {
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      gap: 6px;
+      height: 15px;
+      align-items: center;
+    }
+    .h-segment {
+      height: 100%;
+      border-radius: 4px;
+      box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.45);
+      transition: all 0.3s ease;
+    }
+    .h-segment-1 { background: linear-gradient(180deg, #246b32 0%, #1a5325 100%); }
+    .h-segment-2 { background: linear-gradient(180deg, #358c38 0%, #276e2a 100%); }
+    .h-segment-3 { background: linear-gradient(180deg, #4aa92d 0%, #388521 100%); }
+    .h-segment-4 { background: linear-gradient(180deg, #62c41c 0%, #4c9c14 100%); }
+    .h-segment-5 {
+      background: linear-gradient(180deg, #7de008 0%, #65b804 100%);
+      box-shadow: 0 2px 10px rgba(125, 224, 8, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.45);
+    }
+    .h-segment-6 {
+      background: linear-gradient(180deg, #9bf610 0%, #7fcd0a 100%);
+      box-shadow: 0 2px 10px rgba(155, 246, 16, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.45);
+    }
+    .h-segment-7 {
+      background: linear-gradient(180deg, #c4ff3d 0%, #a3e226 100%);
+      box-shadow: 0 2px 10px rgba(196, 255, 61, 0.35), inset 0 1px 1px rgba(255, 255, 255, 0.45);
+    }
+    .h-segment-unfilled {
+      background: #20242d;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      box-shadow: none;
+    }
+
+    .milestone-checkpoints {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 10px;
+      font-weight: 600;
+      color: #6d7484;
+      margin-top: 8px;
+      padding: 0 2px;
+    }
+    .milestone-checkpoints .current-point {
+      color: #7be400;
+      font-weight: 700;
+    }
+
+    .goal-metrics-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    .metric-tile {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      padding: 10px;
+    }
+    .metric-tile-label {
+      font-size: 10.5px;
+      color: #8e94a0;
+      font-weight: 500;
+    }
+    .metric-tile-val {
+      font-size: 14px;
+      font-weight: 800;
+      color: #ffffff;
+      margin-top: 2px;
+    }
+    .metric-tile-val.highlight {
+      color: #7be400;
+    }
+
+    .goal-card-footer {
+      padding-top: 8px;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 11px;
+      color: #8e94a0;
+    }
+    .goal-card-footer strong {
+      color: #ffffff;
+      font-weight: 600;
+    }
+    .goal-card-footer .pace-highlight {
+      color: #7be400;
+      font-weight: 600;
+    }
+
+    /* ---------------- SCREEN 3: SIP BOOSTER (NEW!) ---------------- */
+    .sip-screen {
+      padding: 14px 20px 16px;
+      justify-content: space-between;
+    }
+    .sip-card {
+      background: #191b20;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 20px;
+      padding: 14px;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.38);
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin: auto 0;
+    }
+    .sip-tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 4px;
+      border-radius: 12px;
+    }
+    .sip-tab-btn {
+      padding: 6px;
+      border-radius: 9px;
+      font-size: 12.5px;
+      font-weight: 800;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      background: transparent;
+      color: #8e94a0;
+    }
+    .sip-tab-btn.active {
+      background: #ede8df;
+      color: #121418;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    }
+    .sip-info-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 4px;
+    }
+    .sip-amount-title {
+      font-size: 11px;
+      color: #8e94a0;
+      font-weight: 500;
+      margin-bottom: 2px;
+    }
+    .sip-amount-val {
+      font-size: 14px;
+      font-weight: 900;
+      color: #ffffff;
+    }
+    .sip-units-badge {
+      background: #121419;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 9px;
+      padding: 4px 10px;
+      display: flex;
+      align-items: baseline;
+    }
+    .sip-slider-track {
+      position: relative;
+      width: 100%;
+      height: 56px;
+      border-radius: 20px;
+      background: #12141a;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      padding: 3px;
+      overflow: hidden;
+      user-select: none;
+    }
+    .sip-tick-marks {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      pointer-events: none;
+    }
+    .sip-tick {
+      width: 1.5px;
+      height: 14px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 9999px;
+    }
+    .sip-glow-fill {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      border-radius: 20px 0 0 20px;
+      pointer-events: none;
+      background: linear-gradient(90deg, rgba(123, 228, 0, 0.12) 0%, rgba(123, 228, 0, 0.6) 65%, rgba(142, 247, 7, 0.95) 100%);
+      box-shadow: 0 0 24px rgba(123, 228, 0, 0.45), inset 0 1px 2px rgba(255, 255, 255, 0.4);
+    }
+    .sip-thumb {
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+    .sip-thumb-inner {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: linear-gradient(180deg, #ffffff 0%, #f4f7ee 100%);
+      border: 2px solid #aeff26;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5), 0 0 18px rgba(123, 228, 0, 0.45);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #172304;
+    }
+    .btn-secondary {
+      width: 100%;
+      background: #181b22;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      color: #8e94a0;
+      font-weight: 700;
+      font-size: 13.5px;
+      padding: 14px 20px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    }
+    .btn-secondary:hover {
+      background: #20242e;
+      color: #ffffff;
+    }
+    .btn-secondary:active {
+      transform: scale(0.98);
+    }
+    .sip-input-range {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      cursor: ew-resize;
+      z-index: 20;
+    }
+    .sip-duration-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 4px;
+      font-size: 11.5px;
+    }
+    .sip-duration-btn {
+      padding: 4px 12px;
+      border-radius: 7px;
+      font-size: 11.5px;
+      font-weight: 700;
+      border: none;
+      background: transparent;
+      color: #8e94a0;
+      cursor: pointer;
+    }
+    .sip-duration-btn.active {
+      background: #252833;
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #ffffff;
+    }
+    .sip-result-block {
+      padding-top: 8px;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    /* ---------------- SCREEN 4: DASHBOARD (With Top Space) ---------------- */
+    #screen4 {
+      padding: 0;
+      justify-content: space-between;
+    }
+    .dash-upper {
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+      transition: margin-top 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
+    }
+    .phone-mockup.is-expanded .dash-upper {
+      margin-top: -380px;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .dash-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 24px 10px;
+    }
+    .user-greeting {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 17px;
+      font-weight: 700;
+    }
+    .equalizer-bars {
+      display: flex;
+      align-items: flex-end;
+      gap: 2.5px;
+      height: 16px;
+    }
+    .equalizer-bars span {
+      width: 3.5px;
+      background: #7be400;
+      border-radius: 2px;
+    }
+
+    .gauge-wrap {
+      position: relative;
+      width: 164px;
+      height: 164px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .gauge-svg {
+      width: 100%;
+      height: 100%;
+      transform: rotate(-90deg);
+    }
+    .gauge-bg {
+      fill: none;
+      stroke: #252830;
+      stroke-width: 12;
+    }
+    .gauge-fill {
+      fill: none;
+      stroke: #396afc;
+      stroke-width: 12;
+      stroke-linecap: round;
+      transition: stroke-dashoffset 0.8s ease-out;
+    }
+    .gauge-center {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .metrics-bar {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      padding: 10px 8px;
+      margin: 0 20px 10px;
+      text-align: center;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .metric-cell:not(:last-child) {
+      border-right: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .metric-cell .label {
+      font-size: 11px;
+      color: #8c93a0;
+      margin-bottom: 2px;
+    }
+    .metric-cell .val {
+      font-size: 13.5px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .actions-bar {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      padding: 0 24px;
+      margin-bottom: 10px;
+    }
+    .btn-action {
+      flex: 1;
+      max-width: 140px;
+      background: #1e2127;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: #e4e7ed;
+      padding: 8px 14px;
+      border-radius: 9999px;
+      font-size: 12.5px;
+      font-weight: 600;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    /* Transactions Card */
+    .transactions-card {
+      flex: 1;
+      min-height: 0;
+      background: #ffffff;
+      border-radius: 30px 30px 0 0;
+      color: #121417;
+      display: flex;
+      flex-direction: column;
+      padding: 12px 22px 14px;
+      box-shadow: 0 -8px 25px rgba(0, 0, 0, 0.3);
+      z-index: 40;
+    }
+    .sheet-handle {
+      width: 40px;
+      height: 4px;
+      background: #d5dae2;
+      border-radius: 9999px;
+      margin: 0 auto 10px;
+      cursor: pointer;
+    }
+    .tx-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .btn-add-tx {
+      background: #1e2127;
+      color: #5ef193;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      font-size: 12px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+    }
+    .tx-list {
+      flex: 1;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      scrollbar-width: none;
+    }
+    .tx-list::-webkit-scrollbar { display: none; }
+    .tx-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 8px;
+      border-bottom: 1px solid #f3f4f6;
+    }
+    .tx-icon-box {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      margin-right: 12px;
+    }
+
+    /* Bottom Home Indicator */
+    .home-indicator-bar {
+      padding: 8px 0;
+      display: flex;
+      justify-content: center;
+      z-index: 50;
+      transition: background-color 0.3s ease;
+    }
+    .home-pill {
+      width: 128px;
+      height: 4px;
+      border-radius: 9999px;
+      background: #2d313b;
+    }
+    .phone-mockup.on-step3 .home-indicator-bar {
+      background: #ffffff;
+    }
+    .phone-mockup.on-step3 .home-pill {
+      background: #cbd5e1;
+    }
+
+    /* Modal */
+    .modal-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(2px);
+      z-index: 70;
+      display: none;
+      align-items: flex-end;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-sheet {
+      background: #ffffff;
+      width: 100%;
+      border-radius: 28px 28px 0 0;
+      padding: 24px;
+      color: #111;
+    }
+    .modal-sheet input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #e1e4ea;
+      border-radius: 12px;
+      font-size: 14px;
+      margin-bottom: 12px;
+      outline: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Phone Shell (900px Height) -->
+  <div class="phone-mockup" id="phoneMockup">
+
+    <!-- Top Status Bar & Dynamic Island -->
+    <div class="status-bar">
+      <span>9:41</span>
+      
+      <div class="dynamic-island">
+        <div class="island-lens"></div>
+      </div>
+
+      <div class="status-icons">
+        <svg viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9 0 2.12.74 4.07 1.97 5.61L4.35 19.4c-.39.39-.39 1.02 0 1.41.39.39 1.02.39 1.41 0l1.9-1.9C9.28 19.64 10.59 20 12 20c4.97 0 9-4.03 9-9s-4.03-9-9-9z"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M12 4C7.31 4 3.07 5.9 0 8.98L12 21 24 8.98C20.93 5.9 16.69 4 12 4z"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M17 4h-3V2h-4v2H7v18h10V4z"/></svg>
+      </div>
+    </div>
+
+    <!-- Screens Container -->
+    <div class="screens-container">
+
+      <!-- ============================================== -->
+      <!-- SCREEN 1: WALLET STREAK                        -->
+      <!-- ============================================== -->
+      <div class="screen-view active" id="screen1">
+        <!-- Top / Center Group: Wallet Icon + Typography -->
+        <div class="screen1-top-group">
+          <!-- Floating Wallet with Luminous Ambient Glow (No Background Card) -->
+          <div class="wallet-glow-wrap">
+            <div class="wallet-ambient-glow"></div>
+            <svg width="122" height="86" viewBox="0 0 170 120" fill="none">
+              <defs>
+                <clipPath id="walletBodyClipHtml">
+                  <rect x="12" y="16" width="126" height="88" rx="24" />
+                </clipPath>
+              </defs>
+              <!-- Bottom extrusion / 3D shadow layer -->
+              <rect x="13" y="21" width="126" height="88" rx="24" fill="#52a600" />
+              <!-- Main front body -->
+              <rect x="12" y="16" width="126" height="88" rx="24" fill="#72d800" />
+              <!-- Clasp shadow on wallet face (clipped to wallet body) -->
+              <g clip-path="url(#walletBodyClipHtml)">
+                <rect x="94" y="44" width="56" height="38" rx="19" fill="#52a600" />
+              </g>
+              <!-- Clasp tongue -->
+              <rect x="98" y="42" width="56" height="36" rx="18" fill="#72d800" />
+              <!-- Clasp pale chartreuse loop trim -->
+              <path d="M 136 49 L 116 49 A 11 11 0 0 0 116 71 L 136 71" fill="none" stroke="#d2ff6e" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round" />
+              <!-- Clasp snap fastener dot -->
+              <circle cx="116" cy="60" r="5" fill="#d2ff6e" />
+            </svg>
+          </div>
+
+          <!-- Luminous Streak Hero Typography -->
+          <div class="streak-hero-block">
+            <div class="streak-big-num" id="streakBigNum" title="Click to toggle (32 / 1095 / 4)">32</div>
+            <h1 class="streak-title">day streak</h1>
+            <p class="streak-copy">
+              Another day of <strong>mindful spending</strong>. Your future self is thanking you.
+            </p>
+          </div>
+        </div>
+
+        <!-- Bottom Group: Streak Card placed lower on screen + CTA Button -->
+        <div class="screen1-bottom-group">
+          <!-- Days Streak Card with Duolingo-style unified streak pill track -->
+          <div class="days-card">
+            <div class="days-grid-labels">
+              <span>TH</span>
+              <span>FR</span>
+              <span>SA</span>
+              <span class="active-day-label">SU</span>
+              <span class="dim-day-label">MO</span>
+              <span class="dim-day-label">TU</span>
+              <span class="dim-day-label">WE</span>
+            </div>
+
+            <div class="days-status-row">
+              <!-- Unified Glowing Pill Track spanning TH, FR, SA, SU -->
+              <div class="streak-pill-track">
+                <div class="pill-check">
+                  <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
+                <div class="pill-check">
+                  <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
+                <div class="pill-check">
+                  <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
+                <div class="pill-check-active">
+                  <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                </div>
+              </div>
+
+              <!-- Upcoming Day Slots -->
+              <div class="day-slot-upcoming"></div>
+              <div class="day-slot-upcoming"></div>
+              <div class="day-slot-upcoming">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#555d70" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M6 9H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h2"/>
+                  <path d="M18 9h2a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-2"/>
+                  <path d="M4 22h16"/>
+                  <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/>
+                  <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/>
+                  <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+
+          <!-- Advance CTA Button -->
+          <div>
+            <button class="btn-cta" id="toStep2">
+              <span id="streakCtaText">Keep Rolling</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============================================== -->
+      <!-- SCREEN 2: STAT HERO & VICES AVOIDED           -->
+      <!-- ============================================== -->
+      <div class="screen-view" id="screen2">
+        <div class="nav-header">
+          <button class="btn-nav-icon" id="backToStep1" title="Back">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+          <span style="font-size: 13.5px; font-weight: 700; color: #8e94a0;">May 2024</span>
+          <div style="width: 36px;"></div>
+        </div>
+
+        <!-- Central Artifact: Top 3% in Middle -->
+        <div class="stat-hero-center">
+          <div style="position: relative; margin-bottom: 10px;">
+            <div style="position: absolute; inset: 0; background: rgba(123, 228, 0, 0.2); filter: blur(24px); border-radius: 9999px; transform: scale(1.25); pointer-events: none;"></div>
+            <div class="stat-hero-number">Top 3%</div>
+          </div>
+          <p class="stat-hero-sub">
+            You've maintained daily budget discipline better than <strong>97% of savers</strong> this month.
+          </p>
+        </div>
+
+        <!-- Bottom Group: Goal Loader Card + Continue Button (Like Screen 1) -->
+        <div class="screen2-bottom-group">
+          <div class="goal-card">
+            <!-- Header: Current Progress & Improving Status -->
+            <div class="goal-score-row" style="margin-bottom: 12px;">
+              <div class="goal-score-col">
+                <div class="goal-score-label">Current Progress</div>
+                <div class="goal-score-num-wrap">
+                  <div class="goal-score-num" style="font-size: 34px;">84%</div>
+                  <div class="goal-score-unit">to goal</div>
+                </div>
+              </div>
+
+              <div class="goal-trend-col">
+                <div class="goal-trend-status" style="font-size: 12px;">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="7" y1="17" x2="17" y2="7"></line>
+                    <polyline points="7 7 17 7 17 17"></polyline>
+                  </svg>
+                  <span>Improving</span>
+                </div>
+                <div class="goal-trend-sub" style="font-size: 10.5px; margin-top: 2px;">+18% this week</div>
+              </div>
+            </div>
+
+            <!-- Horizontal Multi-Shade Segmented Loader (No amounts or labels) -->
+            <div class="horizontal-loader-box" style="margin-bottom: 10px; padding: 12px; border-radius: 14px;">
+              <div class="horizontal-segments-track" style="height: 14px;">
+                <div class="h-segment h-segment-1"></div>
+                <div class="h-segment h-segment-2"></div>
+                <div class="h-segment h-segment-3"></div>
+                <div class="h-segment h-segment-4"></div>
+                <div class="h-segment h-segment-5"></div>
+                <div class="h-segment h-segment-6"></div>
+                <div class="h-segment h-segment-7"></div>
+                <div class="h-segment h-segment-unfilled"></div>
+              </div>
+            </div>
+
+            <!-- Bottom Insight Footer (No Pill) -->
+            <div class="goal-card-footer" style="padding-top: 4px; border: none; font-size: 11px;">
+              <span>Pace: <strong>1.4x faster</strong></span>
+              <span class="pace-highlight">5 days ahead of goal</span>
+            </div>
+          </div>
+
+          <div>
+            <button class="btn-cta" id="toStep3">
+              <span>CONTINUE</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- ============================================== -->
+      <!-- SCREEN 3: FUND YOUR FUTURE (SIP BOOSTER)       -->
+      <!-- ============================================== -->
+      <div class="screen-view sip-screen" id="screen3">
+        <!-- Nav Header -->
+        <div class="nav-header">
+          <button class="btn-nav-icon" id="backToStep2" title="Back to Step 2">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+          </button>
+          <span style="font-size: 12.5px; font-weight: 700; color: #8e94a0;">May 2024</span>
+          <div style="width: 32px;"></div>
+        </div>
+
+        <!-- Glowing Headline & Compounding Subtext -->
+        <div style="text-align: center; margin: auto 0 8px;">
+          <div style="position: relative; margin-bottom: 8px; display: flex; align-items: center; justify-content: center;">
+            <div style="position: absolute; inset: 0; background: rgba(123, 228, 0, 0.2); filter: blur(24px); border-radius: 9999px; transform: scale(1.25); pointer-events: none;"></div>
+            <h1 style="position: relative; font-size: 32px; font-weight: 900; letter-spacing: -0.04em; line-height: 1.1; margin: 0; background: linear-gradient(180deg, #f3ff99 0%, #8ef707 50%, #6ed200 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 4px 24px rgba(123, 228, 0, 0.38));">
+              Fund Your Future
+            </h1>
+          </div>
+          <p style="font-size: 12.5px; color: #8e94a0; line-height: 1.5; max-width: 285px; margin: 0 auto; font-weight: 500;">
+            Small habits compound. Adding just a fraction more today creates massive momentum over the decades.
+          </p>
+        </div>
+
+        <!-- SIP Interactive Calculator Card -->
+        <div class="sip-card">
+          <!-- Direct Rupee Amount Input (Stepper removed, direct formatted input) -->
+          <div>
+            <div style="font-size: 11.5px; font-weight: 600; color: #8e94a0; margin-bottom: 6px; padding: 0 2px;">
+              Monthly Boost Amount
+            </div>
+            <div style="display: flex; align-items: center; gap: 6px; background: #121419; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 12px; padding: 10px 14px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.4);">
+              <span style="color: #7be400; font-size: 20px; font-weight: 900; user-select: none;">₹</span>
+              <input
+                id="sipDirectInputHtml"
+                type="text"
+                inputmode="numeric"
+                value="1,000"
+                style="background: transparent; border: none; color: #ffffff; font-size: 20px; font-weight: 900; letter-spacing: -0.02em; outline: none; width: 100%; -moz-appearance: textfield;"
+                placeholder="1,000"
+                oninput="handleHtmlDirectAmount(this.value)"
+              />
+              <span style="color: #8e94a0; font-size: 12px; font-weight: 700; white-space: nowrap; user-select: none;">/ month</span>
+            </div>
+          </div>
+
+          <!-- Interactive Track with Glowing Lime Design System Gradient & Full Scale Thumb -->
+          <div class="sip-slider-track">
+            <!-- Tick Marks -->
+            <div class="sip-tick-marks">
+              <div class="sip-tick"></div><div class="sip-tick"></div><div class="sip-tick"></div>
+              <div class="sip-tick"></div><div class="sip-tick"></div><div class="sip-tick"></div>
+              <div class="sip-tick"></div><div class="sip-tick"></div><div class="sip-tick"></div>
+              <div class="sip-tick"></div><div class="sip-tick"></div><div class="sip-tick"></div>
+              <div class="sip-tick"></div><div class="sip-tick"></div><div class="sip-tick"></div>
+            </div>
+
+            <!-- Glowing Lime Gradient Trail (Meeting Exact Middle of Circle) -->
+            <div class="sip-glow-fill" id="sipGlowFill" style="width: calc(28px + (100% - 56px) * 0.0526);"></div>
+
+            <!-- Full Scale Thumb Circle with < > Chevrons -->
+            <div class="sip-thumb" id="sipThumb" style="left: calc(28px + (100% - 56px) * 0.0526);">
+              <div class="sip-thumb-inner">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="9 18 3 12 9 6"></polyline>
+                  <polyline points="15 6 21 12 15 18"></polyline>
+                </svg>
+              </div>
+            </div>
+
+            <!-- Range input for drag responsiveness -->
+            <input type="range" min="500" max="10000" step="500" value="1000" id="sipRangeInput" class="sip-input-range" oninput="handleHtmlSipInput(this.value)">
+          </div>
+
+          <!-- 40-Year Horizon Wealth Projection -->
+          <div style="padding-top: 12px; border-top: 1px solid rgba(255, 255, 255, 0.06); text-align: center;">
+            <div style="font-size: 12px; color: #8e94a0; line-height: 1.4; margin-bottom: 6px; font-weight: 500;">
+              This <strong id="sipBoostLabel" style="color: #ffffff; font-weight: 700;">₹1,000/mo</strong> boost could add an extra
+            </div>
+
+            <div style="display: flex; align-items: center; justify-content: center; gap: 6px; color: #5ef193; font-size: 24px; font-weight: 900; letter-spacing: -0.02em; line-height: 1.1;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="7" y1="17" x2="17" y2="7"></line>
+                <polyline points="7 7 17 7 17 17"></polyline>
+              </svg>
+              <span id="sipProjectedVal">₹1.18 Crores</span>
+            </div>
+
+            <div style="font-size: 11px; font-weight: 600; color: #8e94a0; margin-top: 4px;">
+              to your portfolio over 40 years
+            </div>
+          </div>
+        </div>
+
+        <!-- Bottom Group: Both Buttons Equally Clickable, Sized & Tappable -->
+        <div style="width: 100%; margin-top: auto; padding-top: 8px; display: flex; flex-direction: column; gap: 10px;">
+          <button class="btn-cta" id="confirmSipBtn" onclick="confirmHtmlSip()">
+            <span id="sipCtaLabel">SECURE ₹1,000/MO BOOST</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </button>
+
+          <button class="btn-secondary" onclick="navToScreen(4)">
+            Not right now, go to dashboard
+          </button>
+        </div>
+      </div>
+
+      <!-- ============================================== -->
+      <!-- SCREEN 4: DASHBOARD (Matching image.png)       -->
+      <!-- ============================================== -->
+      <div class="screen-view" id="screen4">
+        <div class="dash-upper" id="dashUpper">
+          <div class="dash-header" style="padding: 14px 20px 4px;">
+            <div class="user-greeting" onclick="navToScreen(1)" style="cursor: pointer;" title="Return to Step 1">
+              <div class="equalizer-bars">
+                <span style="height: 9px;"></span>
+                <span style="height: 15px;"></span>
+                <span style="height: 11px;"></span>
+              </div>
+              <span style="font-size: 17px; font-weight: 900; letter-spacing: -0.02em;">Hi Yash</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <button style="background: none; border: none; color: #fff; cursor: pointer; padding: 4px;">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Gauge Section -->
+          <div style="text-align: center; padding: 2px 20px 6px;">
+            <div style="font-size: 12.5px; color: #8e94a0; margin-bottom: 6px;">Spent in <strong style="color: #fff; font-weight: 700;">May</strong></div>
+            <div class="gauge-wrap" style="width: 156px; height: 156px; position: relative;">
+              <svg class="gauge-svg" viewBox="0 0 160 160" style="transform: rotate(-90deg); width: 100%; height: 100%;">
+                <defs>
+                  <linearGradient id="gaugeBlueGradHtml" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#2563eb" />
+                    <stop offset="60%" stop-color="#3b82f6" />
+                    <stop offset="100%" stop-color="#60a5fa" />
+                  </linearGradient>
+                </defs>
+                <circle cx="80" cy="80" r="64" fill="none" stroke="#22252e" stroke-width="12"></circle>
+                <circle id="gaugeCircle" cx="80" cy="80" r="64" fill="none" stroke="url(#gaugeBlueGradHtml)" stroke-width="12" stroke-linecap="round" style="transition: stroke-dashoffset 0.8s ease-out;"></circle>
+              </svg>
+
+              <!-- Gauge Center Content -->
+              <div class="gauge-center" style="position: absolute; width: 108px; height: 108px; border-radius: 50%; background: #13151b; border: 1px solid rgba(255,255,255,0.06); display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                <div style="color: rgba(255,255,255,0.8); margin-bottom: 2px;">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+                </div>
+                <div id="gaugeAmount" style="font-size: 20px; font-weight: 900; letter-spacing: -0.02em; color: #fff; line-height: 1;">₹14,206</div>
+                <div id="gaugePercent" style="margin-top: 4px; font-size: 10.5px; font-weight: 800; color: #5ef193; display: inline-flex; align-items: center; gap: 4px;">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"/></svg>
+                  <span>49%</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3-Column Metrics Bar with generous vertical space -->
+          <div class="metrics-bar" style="margin: 12px 18px; padding: 12px 6px;">
+            <div class="metric-cell" style="padding-right: 4px;">
+              <div class="label" style="font-size: 11px; color: #8e94a0; margin-bottom: 4px;">Income</div>
+              <div class="val" id="incomeToggle" style="display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 13px; font-weight: 700; color: #fff;">
+                <span id="incomeValText">₹***</span>
+                <svg id="incomeEyeIcon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color: #8e94a0;">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+                </svg>
+              </div>
+            </div>
+            <div class="metric-cell" style="padding: 0 4px;">
+              <div class="label" style="font-size: 11px; color: #8e94a0; margin-bottom: 4px;">Budget &gt;</div>
+              <div class="val" style="font-size: 13px; font-weight: 700; color: #fff;">₹30,000</div>
+            </div>
+            <div class="metric-cell" style="padding-left: 4px;">
+              <div class="label" style="font-size: 11px; color: #8e94a0; margin-bottom: 4px;">Safe to spend</div>
+              <div class="val" id="safeSpendVal" style="font-size: 13px; font-weight: 700; color: #fff;">₹509/day</div>
+            </div>
+          </div>
+
+          <!-- Actions Row: Trends and Categories Pill Buttons with generous button spacing -->
+          <div class="actions-bar" style="padding: 0 24px; margin-bottom: 16px; gap: 16px;">
+            <button class="btn-action" style="height: 38px; background: #16181f; border: 1px solid rgba(255,255,255,0.1); color: #a3e635; display: flex; align-items: center; justify-content: center; gap: 10px; font-weight: 800; font-size: 12.5px; padding: 0 16px; border-radius: 9999px;">
+              <span style="display: inline-flex; align-items: flex-end; gap: 2px; height: 14px;">
+                <span style="width: 3px; height: 7px; background: #a855f7; border-radius: 1px;"></span>
+                <span style="width: 3px; height: 13px; background: #7be400; border-radius: 1px;"></span>
+                <span style="width: 3px; height: 9px; background: #3b82f6; border-radius: 1px;"></span>
+              </span>
+              Trends
+            </button>
+            <button class="btn-action" style="height: 38px; background: #16181f; border: 1px solid rgba(255,255,255,0.1); color: #a3e635; display: flex; align-items: center; justify-content: center; gap: 10px; font-weight: 800; font-size: 12.5px; padding: 0 16px; border-radius: 9999px;">
+              <span style="width: 14px; height: 14px; border-radius: 50%; background: linear-gradient(135deg, #9333ea, #ec4899); position: relative; overflow: hidden; display: inline-block;">
+                <span style="position: absolute; top: 0; right: 0; width: 6px; height: 6px; background: #a3e635; border-bottom-left-radius: 100%;"></span>
+              </span>
+              Categories
+            </button>
+          </div>
+        </div>
+
+        <!-- Sliding Transactions Sheet (Smaller, compact white card) -->
+        <div class="transactions-card" id="txCard" style="background: #ffffff; border-radius: 32px 32px 0 0; padding: 14px 20px 4px; height: 262px; flex-shrink: 0;">
+          <div class="tx-header" style="margin-bottom: 8px;">
+            <span style="font-size: 16px; font-weight: 900; color: #111827; letter-spacing: -0.02em;" id="txHeaderTitle">Recent transactions</span>
+            <button class="btn-add-tx" id="openAddModalBtn" style="height: 38px; background: #093318; color: #ffffff; border: 1px solid #1b4e2d; font-size: 12.5px; font-weight: 800; padding: 0 16px; border-radius: 9999px; display: inline-flex; align-items: center; justify-content: center; gap: 10px; cursor: pointer;">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg>
+              <span>Add</span>
+            </button>
+          </div>
+
+          <div class="tx-list" id="txList" style="gap: 10px;">
+            <!-- 1. Zomato (Clean standalone red fork & knife, no background box) -->
+            <div class="tx-row" style="padding-bottom: 8px; border-bottom: 1px solid #f3f4f6;">
+              <div style="display: flex; align-items: center; gap: 12px;">
+                <div style="color: #f43f5e; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center;">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M11 9H9V2H7v7H5V2H3v7c0 2.12 1.66 3.84 3.75 3.97V22h2.5v-9.03C11.34 12.84 13 11.12 13 9V2h-2v7zm5-3v8h2.5v8H21V2c-2.76 0-5 2.24-5 4z"/></svg>
+                </div>
+                <div>
+                  <div style="font-size: 13.5px; font-weight: 800; color: #111827; line-height: 1.15;">Zomato</div>
+                </div>
+              </div>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <div style="text-align: right;">
+                  <div style="font-size: 10px; color: #6b7280; font-weight: 600; margin-bottom: 2px;">26, May</div>
+                  <div style="font-size: 13.5px; font-weight: 800; color: #111827;">₹220</div>
+                </div>
+                <div style="width: 28px; height: 28px; border-radius: 7px; background: #f1f3f7; display: flex; align-items: center; justify-content: center; color: #374151;">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+                </div>
+              </div>
+            </div>
+
+            <!-- 2. Uber (Clean standalone purple car, no background box) -->
+            <div class="tx-row" style="padding-bottom: 8px; border-bottom: 1px solid #f3f4f6;">
+              <div style="display: flex; align-items: center; gap: 12px;">
+                <div style="color: #6366f1; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center;">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.21.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.85 7h10.29l1.04 3H5.81l1.04-3zM19 17H5v-4.66l.12-.34h13.77l.11.34V17z"/><circle cx="7.5" cy="14.5" r="1.5"/><circle cx="16.5" cy="14.5" r="1.5"/></svg>
+                </div>
+                <div>
+                  <div style="font-size: 13.5px; font-weight: 800; color: #111827; line-height: 1.15;">Uber</div>
+                  <div style="display: flex; align-items: center; gap: 4px; font-size: 11px; margin-top: 2px;">
+                    <span style="color: #2563eb; font-weight: 700;">#office</span>
+                    <span style="color: #6b7280; font-weight: 500;">Shared trip</span>
+                  </div>
+                  <div style="margin-top: 2px;">
+                    <span style="background: #f3f4f6; color: #4b5563; font-size: 9.5px; font-weight: 700; padding: 2px 6px; border-radius: 4px; display: inline-flex; align-items: center; gap: 4px;">
+                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="16" y1="3" x2="21" y2="3"/><line x1="21" y1="3" x2="21" y2="8"/><line x1="4" y1="20" x2="21" y2="3"/></svg>
+                      Split
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <div style="text-align: right;">
+                  <div style="font-size: 10px; color: #6b7280; font-weight: 600; margin-bottom: 2px;">19, May</div>
+                  <div style="font-size: 13.5px; font-weight: 800; color: #111827;">₹360</div>
+                </div>
+                <div style="width: 28px; height: 28px; border-radius: 7px; background: #f1f3f7; display: flex; align-items: center; justify-content: center; color: #374151;">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+                </div>
+              </div>
+            </div>
+
+            <!-- 3. Decathlon (Clean standalone cyan cart, no background box) -->
+            <div class="tx-row" style="padding-bottom: 8px; border-bottom: 1px solid #f3f4f6;">
+              <div style="display: flex; align-items: center; gap: 12px;">
+                <div style="color: #06b6d4; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center;">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+                </div>
+                <div>
+                  <div style="font-size: 13.5px; font-weight: 800; color: #111827; line-height: 1.15;">Decathlon</div>
+                  <div style="font-size: 11px; color: #6b7280; font-weight: 500; margin-top: 2px;">badminton shuttle box</div>
+                </div>
+              </div>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <div style="text-align: right;">
+                  <div style="font-size: 10px; color: #6b7280; font-weight: 600; margin-bottom: 2px;">16, May</div>
+                  <div style="font-size: 13.5px; font-weight: 800; color: #111827;">₹1400</div>
+                </div>
+                <div style="width: 28px; height: 28px; border-radius: 7px; background: #f1f3f7; display: flex; align-items: center; justify-content: center; color: #374151;">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+                </div>
+              </div>
+            </div>
+
+            <!-- 4. 1mg (Clean standalone pink heart with pulse line, no background box) -->
+            <div class="tx-row" style="padding-bottom: 8px; border-bottom: 1px solid #f3f4f6;">
+              <div style="display: flex; align-items: center; gap: 12px;">
+                <div style="color: #f43f5e; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center;">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.42 4.58a5.4 5.4 0 0 0-7.65 0l-.77.78-.77-.78a5.4 5.4 0 0 0-7.65 7.65l.77.78L12 21.23l7.65-8.22.77-.78a5.4 5.4 0 0 0 0-7.65z" fill="#f43f5e"/><polyline points="3 12 7 12 9 8 13 16 15 12 21 12" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </div>
+                <div>
+                  <div style="font-size: 13.5px; font-weight: 800; color: #111827; line-height: 1.15;">1mg</div>
+                </div>
+              </div>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <div style="text-align: right;">
+                  <div style="font-size: 10px; color: #6b7280; font-weight: 600; margin-bottom: 2px;">10, May</div>
+                  <div style="font-size: 13.5px; font-weight: 800; color: #111827;">₹1400</div>
+                </div>
+                <div style="width: 28px; height: 28px; border-radius: 7px; background: #f1f3f7; display: flex; align-items: center; justify-content: center; color: #374151;">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg>
+                </div>
+              </div>
+            </div>
+
+            <!-- 5. axio (Clean standalone teal wallet, no background box) -->
+            <div class="tx-row" style="padding-bottom: 4px;">
+              <div style="display: flex; align-items: center; gap: 12px;">
+                <div style="color: #0d9488; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center;">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
+                </div>
+                <div>
+                  <div style="font-size: 13.5px; font-weight: 800; color: #111827; line-height: 1.15;">axio</div>
+                  <div style="font-size: 11px; color: #6b7280; font-weight: 500; margin-top: 2px;">Salary</div>
+                </div>
+              </div>
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <div style="text-align: right;">
+                  <div style="font-size: 10px; color: #6b7280; font-weight: 600; margin-bottom: 2px;">02, May</div>
+                  <div style="font-size: 13.5px; font-weight: 800; color: #111827;">₹45,000</div>
+                </div>
+                <div style="width: 28px; height: 28px; border-radius: 7px; background: #dcfce7; display: flex; align-items: center; justify-content: center; color: #16a34a;">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="17" y1="7" x2="7" y2="17"/><polyline points="17 17 7 17 7 7"/></svg>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom Expand Chevron -->
+          <div style="text-align: center; padding: 4px 0 2px; cursor: pointer; color: #9ca3af;" onclick="phoneMockup.classList.toggle('is-expanded')">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Home Indicator -->
+    <div class="home-indicator-bar">
+      <div class="home-pill"></div>
+    </div>
+
+    <!-- Quick Add Modal -->
+    <div class="modal-overlay" id="modalOverlay">
+      <div class="modal-sheet">
+        <h3 style="margin-bottom: 12px; font-size: 16px; font-weight: 700;">Add Expense</h3>
+        <input type="text" id="merchantInput" placeholder="Merchant name (e.g. Starbucks)">
+        <input type="number" id="amountInput" placeholder="Amount (₹)">
+        <div style="display: flex; gap: 10px;">
+          <button id="cancelModalBtn" style="flex: 1; padding: 12px; border-radius: 12px; border: none; background: #f1f3f6; font-weight: 600; cursor: pointer;">Cancel</button>
+          <button id="saveExpenseBtn" style="flex: 1; padding: 12px; border-radius: 12px; border: none; background: #1e2127; color: #5ef193; font-weight: 700; cursor: pointer;">Save</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Pure Vanilla JavaScript -->
+  <script>
+    const screen1 = document.getElementById('screen1');
+    const screen2 = document.getElementById('screen2');
+    const screen3 = document.getElementById('screen3');
+    const phoneMockup = document.getElementById('phoneMockup');
+
+    // Randomized CTA button options
+    const STREAK_CTA_OPTIONS = ['Keep Rolling', 'Keep Saving', 'Secure the bag'];
+    function randomizeStreakCta() {
+      const ctaEl = document.getElementById('streakCtaText');
+      if (ctaEl) {
+        const picked = STREAK_CTA_OPTIONS[Math.floor(Math.random() * STREAK_CTA_OPTIONS.length)];
+        ctaEl.innerText = picked;
+      }
+    }
+    randomizeStreakCta();
+
+    function navToScreen(step) {
+      screen1.className = 'screen-view';
+      screen2.className = 'screen-view';
+      screen3.className = 'screen-view sip-screen';
+      screen4.className = 'screen-view';
+      phoneMockup.classList.remove('on-step4');
+
+      if (step === 1) {
+        screen1.classList.add('active');
+        randomizeStreakCta();
+      } else if (step === 2) {
+        screen1.classList.add('exited-left');
+        screen2.classList.add('active');
+      } else if (step === 3) {
+        screen1.classList.add('exited-left');
+        screen2.classList.add('exited-left');
+        screen3.classList.add('active');
+        renderHtmlSip();
+      } else if (step === 4) {
+        screen1.classList.add('exited-left');
+        screen2.classList.add('exited-left');
+        screen3.classList.add('exited-left');
+        screen4.classList.add('active');
+        phoneMockup.classList.add('on-step4');
+        updateGauge();
+      }
+    }
+
+    document.getElementById('toStep2').addEventListener('click', () => navToScreen(2));
+    document.getElementById('backToStep1').addEventListener('click', () => navToScreen(1));
+    document.getElementById('toStep3').addEventListener('click', () => navToScreen(3));
+    document.getElementById('backToStep2').addEventListener('click', () => navToScreen(2));
+
+    // Step 3 SIP Interactive Calculator Logic (Default ₹1,000/mo boost)
+    let htmlSipAmount = 1000;
+
+    function calculate40YearReturn(boost) {
+      if (!boost || boost <= 0) return '₹0';
+      const annualR = 0.1197;
+      const n = 40 * 12;
+      const i = annualR / 12;
+      const fv = boost * ((Math.pow(1 + i, n) - 1) / i) * (1 + i);
+      const inCrores = fv / 10000000;
+      if (inCrores >= 1) {
+        return '₹' + inCrores.toFixed(2) + ' Crores';
+      } else {
+        const inLakhs = fv / 100000;
+        return '₹' + inLakhs.toFixed(1) + ' Lakhs';
+      }
+    }
+
+    function renderHtmlSip() {
+      const extraWealth = calculate40YearReturn(htmlSipAmount);
+      const sliderPct = Math.min(100, Math.max(0, ((htmlSipAmount - 500) / (10000 - 500)) * 100));
+
+      const inputEl = document.getElementById('sipDirectInputHtml');
+      if (inputEl && document.activeElement !== inputEl) {
+        inputEl.value = htmlSipAmount ? htmlSipAmount.toLocaleString('en-IN') : '';
+      }
+
+      const rangeEl = document.getElementById('sipRangeInput');
+      if (rangeEl) {
+        rangeEl.value = Math.min(10000, Math.max(500, htmlSipAmount));
+      }
+
+      const glowFill = document.getElementById('sipGlowFill');
+      if (glowFill) glowFill.style.width = 'calc(28px + (100% - 56px) * ' + (sliderPct / 100) + ')';
+
+      const thumb = document.getElementById('sipThumb');
+      if (thumb) thumb.style.left = 'calc(28px + (100% - 56px) * ' + (sliderPct / 100) + ')';
+
+      const boostLabel = document.getElementById('sipBoostLabel');
+      if (boostLabel) boostLabel.innerText = '₹' + htmlSipAmount.toLocaleString('en-IN') + '/mo';
+
+      const projVal = document.getElementById('sipProjectedVal');
+      if (projVal) projVal.innerText = extraWealth;
+
+      const ctaLabel = document.getElementById('sipCtaLabel');
+      if (ctaLabel) ctaLabel.innerText = 'SECURE ₹' + htmlSipAmount.toLocaleString('en-IN') + '/MO BOOST';
+    }
+
+    function handleHtmlSipInput(val) {
+      htmlSipAmount = Number(val);
+      renderHtmlSip();
+    }
+
+    function handleHtmlDirectAmount(val) {
+      const raw = val.replace(/\D/g, '');
+      const parsed = parseInt(raw, 10);
+      htmlSipAmount = isNaN(parsed) ? 0 : parsed;
+      renderHtmlSip();
+    }
+
+    function confirmHtmlSip() {
+      navToScreen(4);
+    }
+
+    // Toggle Streak Number (32 / 1095 / 4)
+    const streakBigNum = document.getElementById('streakBigNum');
+    streakBigNum.addEventListener('click', () => {
+      if (streakBigNum.innerText === '32') {
+        streakBigNum.innerText = '1095';
+      } else if (streakBigNum.innerText === '1095') {
+        streakBigNum.innerText = '4';
+      } else {
+        streakBigNum.innerText = '32';
+      }
+    });
+
+    // Dashboard Gauge
+    let spent = 14206;
+    const budget = 30000;
+    const gaugeRadius = 64;
+    const circ = 2 * Math.PI * gaugeRadius;
+    const gaugeCircle = document.getElementById('gaugeCircle');
+    if (gaugeCircle) gaugeCircle.style.strokeDasharray = circ;
+
+    function updateGauge() {
+      const pct = Math.min(Math.round((spent / budget) * 100), 100);
+      const offset = circ - (circ * pct) / 100;
+      if (gaugeCircle) gaugeCircle.style.strokeDashoffset = offset;
+      const amtEl = document.getElementById('gaugeAmount');
+      if (amtEl) amtEl.innerText = '₹' + spent.toLocaleString('en-IN');
+      const pctEl = document.getElementById('gaugePercent');
+      if (pctEl) {
+        pctEl.innerHTML = `
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2v4m0 12v4M4.93 4.93l2.83 2.83m8.48 8.48l2.83 2.83M2 12h4m12 0h4M4.93 19.07l2.83-2.83m8.48-8.48l2.83-2.83"/></svg>
+          <span>${pct}%</span>
+        `;
+      }
+
+      // Safe to spend
+      const safeEl = document.getElementById('safeSpendVal');
+      if (safeEl) {
+        const safe = Math.max(0, Math.round((budget - spent) / 6));
+        safeEl.innerText = '₹' + safe + '/day';
+      }
+    }
+
+    // Income Toggle
+    let incomeHidden = true;
+    const incomeBtn = document.getElementById('incomeToggle');
+    if (incomeBtn) {
+      incomeBtn.addEventListener('click', function() {
+        incomeHidden = !incomeHidden;
+        const valText = document.getElementById('incomeValText');
+        if (valText) valText.innerText = incomeHidden ? '₹***' : '₹65,000';
+      });
+    }
+
+    // Expand Sheet
+    const sheetHandle = document.getElementById('sheetHandle');
+    const txHeaderTitle = document.getElementById('txHeaderTitle');
+    sheetHandle.addEventListener('click', () => {
+      const isExpanded = phoneMockup.classList.toggle('is-expanded');
+      txHeaderTitle.innerText = isExpanded ? 'All transactions' : 'Recent transactions';
+    });
+
+    // Add Modal
+    const modalOverlay = document.getElementById('modalOverlay');
+    const openAddModalBtn = document.getElementById('openAddModalBtn');
+    const cancelModalBtn = document.getElementById('cancelModalBtn');
+    const saveExpenseBtn = document.getElementById('saveExpenseBtn');
+    const merchantInput = document.getElementById('merchantInput');
+    const amountInput = document.getElementById('amountInput');
+    const txList = document.getElementById('txList');
+
+    openAddModalBtn.addEventListener('click', () => {
+      modalOverlay.classList.add('open');
+      merchantInput.focus();
+    });
+    cancelModalBtn.addEventListener('click', () => {
+      modalOverlay.classList.remove('open');
+      merchantInput.value = '';
+      amountInput.value = '';
+    });
+
+    saveExpenseBtn.addEventListener('click', () => {
+      const title = merchantInput.value.trim();
+      const amt = parseFloat(amountInput.value);
+      if (!title || isNaN(amt) || amt <= 0) return;
+
+      spent += amt;
+      updateGauge();
+
+      const row = document.createElement('div');
+      row.className = 'tx-row';
+      row.innerHTML = `
+        <div style="display: flex; align-items: center;">
+          <div class="tx-icon-box" style="background: #e0e7ff; color: #4338ca;">🏷️</div>
+          <div>
+            <div style="font-size: 13.5px; font-weight: 600;">${title}</div>
+            <div style="font-size: 10.5px; color: #798190;">Manual Entry</div>
+          </div>
+        </div>
+        <div style="text-align: right;">
+          <div style="font-size: 10px; color: #8c94a2;">Just now</div>
+          <div style="font-size: 13.5px; font-weight: 700;">₹${amt.toLocaleString('en-IN')}</div>
+        </div>
+      `;
+      txList.prepend(row);
+      modalOverlay.classList.remove('open');
+      merchantInput.value = '';
+      amountInput.value = '';
+    });
+  </script>
+</body>
+</html>
